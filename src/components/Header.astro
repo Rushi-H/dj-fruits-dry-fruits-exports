@@ -14,6 +14,7 @@ const mrTarget = `/mr${pathWithoutLang === '/' ? '' : pathWithoutLang}`;
 
 const prefix = lang === 'mr' ? '/mr' : '';
 const homeLink = `${prefix}/`;
+const galleryLink = `${prefix}/#gallery`;
 const farmersLink = `${prefix}/#farmers`;
 const productsLink = `${prefix}/#products`;
 const originLink = `${prefix}/#origin`;
@@ -32,7 +33,7 @@ const whatsappUrl = `https://wa.me/919130659595?text=${encodeURIComponent(defaul
     <div class="container topbar-inner">
       <div class="topbar-left">
         <span class="topbar-hub">📍 {lang === 'mr' ? 'थेट संकलन केंद्र: मनेराजुरी, सांगली' : 'Direct Packhouse: Manerajuri, Sangli'}</span>
-        <a href="tel:+919130659595" class="topbar-tel">📞 +91 9130659595</a>
+        <a href="tel:+919130659595" class="topbar-tel" aria-label="Call DJ Fruits desk">📞 +91 9130659595</a>
       </div>
 
       <div class="topbar-right">
@@ -73,22 +74,23 @@ const whatsappUrl = `https://wa.me/919130659595?text=${encodeURIComponent(defaul
       <!-- Desktop Navigation Links -->
       <nav class="nav-menu" id="nav-menu" aria-label="Main menu">
         <ul class="nav-list">
-          <li><a href={homeLink} class="nav-item">{dict.nav.home}</a></li>
-          <li><a href={farmersLink} class="nav-item">{dict.nav.farmers}</a></li>
-          <li><a href={productsLink} class="nav-item">{dict.nav.products}</a></li>
-          <li><a href={originLink} class="nav-item">{dict.nav.origin}</a></li>
-          <li><a href={blogLink} class="nav-item">{dict.nav.blog}</a></li>
-          <li><a href={contactLink} class="nav-item">{dict.nav.contact}</a></li>
+          <li><a href={homeLink} class="nav-item" data-nav-target="home">{dict.nav.home}</a></li>
+          <li><a href={galleryLink} class="nav-item" data-nav-target="gallery">{dict.nav.gallery}</a></li>
+          <li><a href={farmersLink} class="nav-item" data-nav-target="farmers">{dict.nav.farmers}</a></li>
+          <li><a href={productsLink} class="nav-item" data-nav-target="products">{dict.nav.products}</a></li>
+          <li><a href={originLink} class="nav-item" data-nav-target="origin">{dict.nav.origin}</a></li>
+          <li><a href={blogLink} class="nav-item" data-nav-target="blog">{dict.nav.blog}</a></li>
+          <li><a href={contactLink} class="nav-item" data-nav-target="contact">{dict.nav.contact}</a></li>
         </ul>
       </nav>
 
       <!-- Primary Action & Mobile Menu Toggle -->
       <div class="nav-actions">
-        <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp nav-cta-btn">
+        <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp nav-cta-btn" aria-label={dict.nav.sell_cta}>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 6.46 17.5 2 12.04 2M12.05 3.67C16.58 3.67 20.28 7.37 20.28 11.92C20.28 16.46 16.58 20.17 12.04 20.17C10.59 20.17 9.17 19.79 7.92 19.05L7.62 18.87L4.5 19.69L5.33 16.65L5.13 16.33C4.33 15.05 3.8 13.51 3.8 11.91C3.81 7.37 7.51 3.67 12.05 3.67Z"/>
           </svg>
-          <span>{dict.nav.sell_cta}</span>
+          <span class="cta-label">{dict.nav.sell_cta}</span>
         </a>
 
         <button
@@ -96,13 +98,102 @@ const whatsappUrl = `https://wa.me/919130659595?text=${encodeURIComponent(defaul
           class="mobile-toggle"
           id="mobile-toggle-btn"
           aria-expanded="false"
-          aria-controls="nav-menu"
+          aria-controls="mobile-drawer"
           aria-label="Toggle navigation menu"
         >
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
+          <span class="bar bar-top"></span>
+          <span class="bar bar-mid"></span>
+          <span class="bar bar-bot"></span>
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer Overlay & Menu -->
+  <div class="mobile-drawer" id="mobile-drawer" style="display: none;" aria-hidden="true">
+    <div class="drawer-backdrop" id="drawer-backdrop"></div>
+    <div class="drawer-panel">
+      <!-- Quick Info Bar inside Drawer -->
+      <div class="drawer-top-info">
+        <div class="drawer-hub">📍 {lang === 'mr' ? 'मनेराजुरी संकलन केंद्र' : 'Manerajuri Packhouse Hub'}</div>
+        <div class="drawer-lang-switch">
+          <a href={enTarget} class:list={['drawer-lang-btn', { active: lang === 'en' }]}>EN</a>
+          <span class="drawer-lang-sep">/</span>
+          <a href={mrTarget} class:list={['drawer-lang-btn', { active: lang === 'mr' }]}>मराठी</a>
+        </div>
+      </div>
+
+      <!-- Drawer Nav Links -->
+      <nav class="drawer-nav" aria-label="Mobile Navigation">
+        <ul class="drawer-list">
+          <li>
+            <a href={homeLink} class="drawer-item" data-nav-target="home">
+              <span class="drawer-item-icon">🏠</span>
+              <span class="drawer-item-text">{dict.nav.home}</span>
+              <span class="drawer-chevron">›</span>
+            </a>
+          </li>
+          <li>
+            <a href={galleryLink} class="drawer-item" data-nav-target="gallery">
+              <span class="drawer-item-icon">🖼️</span>
+              <span class="drawer-item-text">{dict.nav.gallery}</span>
+              <span class="drawer-badge-new">New</span>
+              <span class="drawer-chevron">›</span>
+            </a>
+          </li>
+          <li>
+            <a href={farmersLink} class="drawer-item" data-nav-target="farmers">
+              <span class="drawer-item-icon">⚖️</span>
+              <span class="drawer-item-text">{dict.nav.farmers}</span>
+              <span class="drawer-chevron">›</span>
+            </a>
+          </li>
+          <li>
+            <a href={productsLink} class="drawer-item" data-nav-target="products">
+              <span class="drawer-item-icon">🍇</span>
+              <span class="drawer-item-text">{dict.nav.products}</span>
+              <span class="drawer-chevron">›</span>
+            </a>
+          </li>
+          <li>
+            <a href={originLink} class="drawer-item" data-nav-target="origin">
+              <span class="drawer-item-icon">🗺️</span>
+              <span class="drawer-item-text">{dict.nav.origin}</span>
+              <span class="drawer-chevron">›</span>
+            </a>
+          </li>
+          <li>
+            <a href={blogLink} class="drawer-item" data-nav-target="blog">
+              <span class="drawer-item-icon">📖</span>
+              <span class="drawer-item-text">{dict.nav.blog}</span>
+              <span class="drawer-chevron">›</span>
+            </a>
+          </li>
+          <li>
+            <a href={contactLink} class="drawer-item" data-nav-target="contact">
+              <span class="drawer-item-icon">📞</span>
+              <span class="drawer-item-text">{dict.nav.contact}</span>
+              <span class="drawer-chevron">›</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Drawer Actions Footer -->
+      <div class="drawer-footer">
+        <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp drawer-wa-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 6.46 17.5 2 12.04 2M12.05 3.67C16.58 3.67 20.28 7.37 20.28 11.92C20.28 16.46 16.58 20.17 12.04 20.17C10.59 20.17 9.17 19.79 7.92 19.05L7.62 18.87L4.5 19.69L5.33 16.65L5.13 16.33C4.33 15.05 3.8 13.51 3.8 11.91C3.81 7.37 7.51 3.67 12.05 3.67Z"/>
+          </svg>
+          <span>{lang === 'mr' ? 'व्हॉट्सॲपवर शेतमाल नोंदवा' : 'Sell to us on WhatsApp'}</span>
+        </a>
+
+        <a href="tel:+919130659595" class="drawer-call-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+          </svg>
+          <span>{lang === 'mr' ? 'थेट फोन करा: +९१ ९१३०६५९५९५' : 'Direct Call: +91 9130659595'}</span>
+        </a>
       </div>
     </div>
   </div>
@@ -113,17 +204,19 @@ const whatsappUrl = `https://wa.me/919130659595?text=${encodeURIComponent(defaul
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: rgba(15, 59, 44, 0.96);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border-dark);
+    background: rgba(10, 36, 27, 0.98);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    width: 100%;
   }
 
+  /* Topbar */
   .header-topbar {
-    background-color: #0A241B;
+    background-color: #061912;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     font-size: 0.8125rem;
-    padding: 0.4rem 0;
+    padding: 0.35rem 0;
   }
 
   .topbar-inner {
@@ -135,14 +228,21 @@ const whatsappUrl = `https://wa.me/919130659595?text=${encodeURIComponent(defaul
 
   .topbar-left {
     display: flex;
-    gap: 1.5rem;
+    gap: 1.25rem;
     align-items: center;
+  }
+
+  .topbar-hub {
+    color: #BAC9B7;
   }
 
   .topbar-tel {
     color: var(--sprout);
     text-decoration: none;
     font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
   }
 
   .topbar-tel:hover {
@@ -152,9 +252,9 @@ const whatsappUrl = `https://wa.me/919130659595?text=${encodeURIComponent(defaul
   .lang-switch {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.4rem;
     background: rgba(255, 255, 255, 0.08);
-    padding: 0.2rem 0.6rem;
+    padding: 0.18rem 0.5rem;
     border-radius: var(--radius);
     border: 1px solid rgba(255, 255, 255, 0.15);
   }
@@ -164,8 +264,9 @@ const whatsappUrl = `https://wa.me/919130659595?text=${encodeURIComponent(defaul
     text-decoration: none;
     font-size: 0.8125rem;
     font-weight: 500;
-    padding: 0.1rem 0.3rem;
+    padding: 0.1rem 0.35rem;
     border-radius: 2px;
+    transition: all 0.15s ease;
   }
 
   .lang-btn.active {
@@ -175,64 +276,75 @@ const whatsappUrl = `https://wa.me/919130659595?text=${encodeURIComponent(defaul
   }
 
   .lang-divider {
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 0.75rem;
   }
 
   /* Main Nav */
   .header-main {
-    padding: 0.75rem 0;
+    padding: 0.65rem 0;
+    position: relative;
   }
 
   .nav-inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
   }
 
+  /* Brand */
   .brand-link {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.65rem;
     text-decoration: none;
     color: #FFFFFF;
+    flex-shrink: 0;
+    min-width: 0;
   }
 
   .brand-mark {
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
     background-color: var(--sprout);
     color: var(--canopy);
     font-family: var(--font-display-en);
     font-weight: 900;
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: var(--radius);
     box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+    flex-shrink: 0;
   }
 
   .brand-text {
     display: flex;
     flex-direction: column;
+    min-width: 0;
   }
 
   .brand-title {
     font-family: var(--font-display);
-    font-size: 1.125rem;
+    font-size: 1.05rem;
     font-weight: 700;
     letter-spacing: 0.02em;
     color: #FFFFFF;
-    line-height: 1.2;
+    line-height: 1.15;
+    white-space: nowrap;
   }
 
   .brand-tagline {
-    font-size: 0.6875rem;
+    font-size: 0.65rem;
     letter-spacing: 0.08em;
     color: var(--sprout);
     font-weight: 600;
+    white-space: nowrap;
   }
 
+  /* Desktop Nav Menu */
   .nav-menu {
     display: none;
   }
@@ -240,58 +352,298 @@ const whatsappUrl = `https://wa.me/919130659595?text=${encodeURIComponent(defaul
   .nav-list {
     display: flex;
     list-style: none;
-    gap: 1.75rem;
+    gap: clamp(0.6rem, 1.1vw, 1.4rem);
     align-items: center;
+    padding: 0;
+    margin: 0;
   }
 
   .nav-item {
-    color: var(--mist);
+    color: #D3DFD0;
     text-decoration: none;
-    font-size: 0.9375rem;
-    font-weight: 500;
-    padding: 0.5rem 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.4rem 0.2rem;
     position: relative;
+    white-space: nowrap;
     transition: color 0.15s ease;
   }
 
+  .nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: var(--sprout);
+    transition: width 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
   .nav-item:hover {
+    color: #FFFFFF;
+  }
+
+  .nav-item:hover::after,
+  .nav-item.active::after {
+    width: 100%;
+  }
+
+  .nav-item.active {
     color: var(--sprout);
   }
 
+  /* Nav Actions */
   .nav-actions {
     display: flex;
     align-items: center;
-    gap: 0.875rem;
+    gap: 0.65rem;
+    flex-shrink: 0;
   }
 
   .nav-cta-btn {
-    padding: 0.6rem 1.1rem;
-    font-size: 0.875rem;
-    min-height: 40px;
+    padding: 0.55rem 1rem;
+    font-size: 0.84375rem;
+    min-height: 38px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    white-space: nowrap;
+    border-radius: var(--radius);
   }
 
+  /* Mobile Toggle Button */
   .mobile-toggle {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     gap: 5px;
-    width: 44px;
-    height: 44px;
-    background: transparent;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: var(--radius);
-    padding: 10px;
+    padding: 8px;
     cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+
+  .mobile-toggle:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.35);
   }
 
   .mobile-toggle .bar {
-    width: 100%;
+    width: 22px;
     height: 2px;
     background-color: #FFFFFF;
-    transition: transform 0.2s ease, opacity 0.2s ease;
+    border-radius: 2px;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+    transform-origin: center;
   }
 
-  @media (min-width: 992px) {
+  /* Transforming hamburger to X */
+  .mobile-toggle.is-active .bar-top {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .mobile-toggle.is-active .bar-mid {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  .mobile-toggle.is-active .bar-bot {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* Mobile Drawer Overlay */
+  .mobile-drawer {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 999;
+  }
+
+  .mobile-drawer.open {
+    display: block;
+  }
+
+  .drawer-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(4, 15, 10, 0.65);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  .mobile-drawer.open .drawer-backdrop {
+    opacity: 1;
+  }
+
+  .drawer-panel {
+    position: absolute;
+    top: 75px;
+    left: 0;
+    width: 100%;
+    max-height: calc(100vh - 75px);
+    overflow-y: auto;
+    background: #082117;
+    border-bottom: 2px solid var(--leaf);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65);
+    padding: 1rem 1.25rem 1.75rem;
+    transform: translateY(-10px);
+    opacity: 0;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .mobile-drawer.open .drawer-panel {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  /* Drawer Top Info */
+  .drawer-top-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.8125rem;
+    color: #BAC9B7;
+  }
+
+  .drawer-lang-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .drawer-lang-btn {
+    color: #BAC9B7;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.15rem 0.4rem;
+    border-radius: 2px;
+  }
+
+  .drawer-lang-btn.active {
+    color: #FFFFFF;
+    background-color: var(--leaf);
+    font-weight: 700;
+  }
+
+  .drawer-lang-sep {
+    color: rgba(255, 255, 255, 0.3);
+  }
+
+  /* Drawer Nav Items */
+  .drawer-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .drawer-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 0.85rem;
+    color: #EDF5EC;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius);
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+
+  .drawer-item:hover, .drawer-item.active {
+    background: rgba(46, 125, 79, 0.25);
+    border-color: var(--leaf);
+    color: #FFFFFF;
+  }
+
+  .drawer-item-icon {
+    font-size: 1.15rem;
+    line-height: 1;
+    width: 24px;
+    text-align: center;
+  }
+
+  .drawer-item-text {
+    flex-grow: 1;
+  }
+
+  .drawer-badge-new {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    background: var(--sprout);
+    color: var(--canopy);
+    padding: 0.15rem 0.45rem;
+    border-radius: 999px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .drawer-chevron {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+
+  /* Drawer Footer */
+  .drawer-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  .drawer-wa-btn {
+    width: 100%;
+    padding: 0.85rem;
+    font-size: 0.9375rem;
+    justify-content: center;
+    font-weight: 700;
+    border-radius: var(--radius);
+  }
+
+  .drawer-call-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    color: var(--sprout);
+    background: rgba(143, 191, 106, 0.1);
+    border: 1px solid rgba(143, 191, 106, 0.3);
+    border-radius: var(--radius);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: background 0.15s ease;
+  }
+
+  .drawer-call-btn:hover {
+    background: rgba(143, 191, 106, 0.2);
+  }
+
+  /* Responsive Breakpoints */
+  @media (min-width: 1060px) {
     .nav-menu {
       display: block;
     }
@@ -300,70 +652,157 @@ const whatsappUrl = `https://wa.me/919130659595?text=${encodeURIComponent(defaul
     }
   }
 
-  @media (max-width: 768px) {
-    .topbar-left {
+  @media (max-width: 1059px) {
+    .nav-menu {
       display: none;
     }
-    .topbar-inner {
-      justify-content: flex-end;
+    .mobile-toggle {
+      display: flex;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .topbar-left .topbar-hub {
+      display: none;
+    }
+    .topbar-left {
+      gap: 0.5rem;
     }
     .brand-title {
-      font-size: 1rem;
-    }
-    .nav-cta-btn span {
-      display: none;
+      font-size: 0.95rem;
     }
     .nav-cta-btn {
-      padding: 0.6rem;
-      min-height: 40px;
+      display: none;
     }
   }
 
-  /* Mobile menu active overlay */
-  .nav-menu.open {
-    display: block;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background: #0B291E;
-    border-bottom: 2px solid var(--border-dark);
-    padding: 1.5rem 1.25rem;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-  }
-
-  .nav-menu.open .nav-list {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  .nav-menu.open .nav-item {
-    font-size: 1.125rem;
-    display: block;
-    width: 100%;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  @media (max-width: 480px) {
+    .brand-tagline {
+      display: none;
+    }
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      font-size: 1rem;
+    }
+    .brand-title {
+      font-size: 0.875rem;
+    }
   }
 </style>
 
 <script is:inline>
-  // Mobile Nav Toggle
-  const toggleBtn = document.getElementById('mobile-toggle-btn');
-  const navMenu = document.getElementById('nav-menu');
+  (function () {
+    const toggleBtn = document.getElementById('mobile-toggle-btn');
+    const drawer = document.getElementById('mobile-drawer');
+    const backdrop = document.getElementById('drawer-backdrop');
+    const siteHeader = document.getElementById('site-header');
 
-  if (toggleBtn && navMenu) {
-    toggleBtn.addEventListener('click', () => {
-      const isOpen = navMenu.classList.toggle('open');
-      toggleBtn.setAttribute('aria-expanded', String(isOpen));
-    });
+    if (!toggleBtn || !drawer) return;
 
-    // Close when clicking nav items
-    navMenu.querySelectorAll('.nav-item').forEach(item => {
-      item.addEventListener('click', () => {
-        navMenu.classList.remove('open');
-        toggleBtn.setAttribute('aria-expanded', 'false');
+    function syncDrawerTop() {
+      if (siteHeader) {
+        const headerHeight = siteHeader.offsetHeight;
+        const panel = drawer.querySelector('.drawer-panel');
+        if (panel) {
+          panel.style.top = `${headerHeight}px`;
+          panel.style.maxHeight = `calc(100vh - ${headerHeight}px)`;
+        }
+      }
+    }
+
+    function openMenu() {
+      syncDrawerTop();
+      drawer.style.display = 'block';
+      requestAnimationFrame(() => {
+        drawer.classList.add('open');
       });
+      drawer.setAttribute('aria-hidden', 'false');
+      toggleBtn.classList.add('is-active');
+      toggleBtn.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('menu-open');
+    }
+
+    function closeMenu() {
+      drawer.classList.remove('open');
+      drawer.setAttribute('aria-hidden', 'true');
+      toggleBtn.classList.remove('is-active');
+      toggleBtn.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('menu-open');
+      setTimeout(() => {
+        if (!drawer.classList.contains('open')) {
+          drawer.style.display = 'none';
+        }
+      }, 260);
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      const isOpen = drawer.classList.contains('open');
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
     });
-  }
+
+    if (backdrop) {
+      backdrop.addEventListener('click', closeMenu);
+    }
+
+    // Close when tapping drawer links
+    drawer.querySelectorAll('.drawer-item').forEach((link) => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    // Close on Escape key
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && drawer.classList.contains('open')) {
+        closeMenu();
+      }
+    });
+
+    // Auto-close on resize to desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1060 && drawer.classList.contains('open')) {
+        closeMenu();
+      }
+    });
+
+    // Active link highlighting on scroll (ScrollSpy)
+    const sectionIds = ['gallery', 'farmers', 'products', 'origin', 'contact'];
+    const navLinks = document.querySelectorAll('.nav-item, .drawer-item');
+
+    function updateActiveLink() {
+      const scrollPos = window.scrollY + 120;
+      let currentSection = 'home';
+
+      if (window.scrollY < 200) {
+        currentSection = 'home';
+      } else {
+        for (let i = 0; i < sectionIds.length; i++) {
+          const el = document.getElementById(sectionIds[i]);
+          if (el) {
+            const top = el.offsetTop;
+            const height = el.offsetHeight;
+            if (scrollPos >= top && scrollPos < top + height) {
+              currentSection = sectionIds[i];
+              break;
+            }
+          }
+        }
+      }
+
+      navLinks.forEach((link) => {
+        const target = link.getAttribute('data-nav-target');
+        if (target === currentSection) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', updateActiveLink, { passive: true });
+    updateActiveLink();
+  })();
 </script>

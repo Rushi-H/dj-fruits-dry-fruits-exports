@@ -1,6 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
+import Gallery from '../components/Gallery.astro';
+import FruitsCarouselSection from '../components/FruitsCarouselSection.astro';
 import Farmers from '../components/Farmers.astro';
 import Products from '../components/Products.astro';
 import Origin from '../components/Origin.astro';
@@ -13,14 +15,20 @@ const dict = en;
 
 <Layout
   lang={lang}
-  title="DJ Fruits and Dry Fruits Exports | Direct Farm Procurement & Mandi Rates"
-  description="We buy export-grade grapes, raisins, pomegranate, almonds, and dates directly from farmers across Sangli, Solapur, Nashik, and Pune. Calibrated digital weighing & direct bank payment."
+  title="DJ Fruits and Dry Fruits Exports | Direct Farm Procurement & Export Supply"
+  description="We buy export-grade grapes, raisins, pomegranate, almonds, and dates directly from farmers across Sangli, Solapur, Nashik, and Pune. Calibrated digital weighing & prompt settlement."
   canonicalPath="/"
 >
-  <!-- Hero with Scroll-Scrubbed Video bg2.mp4 -->
+  <!-- Hero Section with Background Video -->
   <Hero lang={lang} dict={dict} />
 
-  <!-- Farmers Procurement & Mandi Rates & Weighing Slip -->
+  <!-- Animated Product & Packhouse Gallery -->
+  <Gallery lang={lang} dict={dict} />
+
+  <!-- 3D Fruit Water Ripple Carousel Section -->
+  <FruitsCarouselSection lang={lang} dict={dict} />
+
+  <!-- Farmers Procurement & Farm Lot Registration Slip -->
   <Farmers lang={lang} dict={dict} />
 
   <!-- Products We Procure & Sourcing Calendar -->

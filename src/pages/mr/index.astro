@@ -1,6 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Hero from '../../components/Hero.astro';
+import Gallery from '../../components/Gallery.astro';
+import FruitsCarouselSection from '../../components/FruitsCarouselSection.astro';
 import Farmers from '../../components/Farmers.astro';
 import Products from '../../components/Products.astro';
 import Origin from '../../components/Origin.astro';
@@ -17,10 +19,16 @@ const dict = mr;
   description="सांगली, सोलापूर, नाशिक व पुणे पट्ट्यातील द्राक्षे, डाळिंब, बेदाणा आणि ड्रायफ्रूट्स थेट खरेदी. पारदर्शक डिजिटल वजन आणि तत्काळ बँक पेमेंट."
   canonicalPath="/mr/"
 >
-  <!-- Hero with Scroll-Scrubbed Video bg2.mp4 -->
+  <!-- Hero Section with Background Video -->
   <Hero lang={lang} dict={dict} />
 
-  <!-- Farmers Procurement & Mandi Rates & Weighing Slip -->
+  <!-- Animated Product & Packhouse Gallery -->
+  <Gallery lang={lang} dict={dict} />
+
+  <!-- 3D Fruit Water Ripple Carousel Section -->
+  <FruitsCarouselSection lang={lang} dict={dict} />
+
+  <!-- Farmers Procurement & Farm Lot Registration Slip -->
   <Farmers lang={lang} dict={dict} />
 
   <!-- Products We Procure & Sourcing Calendar -->
