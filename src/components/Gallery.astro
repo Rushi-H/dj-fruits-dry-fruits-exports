@@ -1,0 +1,984 @@
+---
+interface Props {
+  lang: 'en' | 'mr';
+  dict: any;
+}
+
+const { lang, dict } = Astro.props;
+
+const galleryItems = dict.gallery?.items || [
+  {
+    id: "gal-grapes",
+    title: lang === 'mr' ? "ताजी निर्यातक्षम द्राक्षे" : "Fresh Export Grapes",
+    category: "fresh",
+    category_label: lang === 'mr' ? "ताजी फळे" : "Fresh Fruit",
+    image: "/images/grapes.jpg",
+    badge: lang === 'mr' ? "१६ मिमी+ मणी • १६°+ गोडवा" : "16mm+ Berry • Brix 16°+",
+    region: lang === 'mr' ? "सांगली, तासगाव व नाशिक" : "Sangli & Nashik Belts",
+    desc: lang === 'mr'
+      ? "तासगाव, मिरज आणि निफाड परिसरातील बागांमधून थेट काढणी केलेली कुरकुरीत आणि गोड थॉमसन सिडलेस व सोनाका द्राक्षे."
+      : "Crisp, high-brix Thompson Seedless, Sonaka, and Super Sonaka table grapes harvested from verified vineyards across Tasgaon, Miraj, and Niphad.",
+    season: lang === 'mr' ? "डिसेंबर ते एप्रिल" : "December to April"
+  },
+  {
+    id: "gal-pomegranate",
+    title: lang === 'mr' ? "भगवा डाळिंब" : "Bhagwa Pomegranate",
+    category: "fresh",
+    category_label: lang === 'mr' ? "ताजी फळे" : "Fresh Fruit",
+    image: "/images/pomegranate.jpg",
+    badge: lang === 'mr' ? "गडद लाल दाणे • २५०-४०० ग्रॅम+" : "Glossy Deep Red • 250g-400g+",
+    region: lang === 'mr' ? "सोलापूर व सांगली केंद्र" : "Solapur & Sangli Hubs",
+    desc: lang === 'mr'
+      ? "सांगोला, पंढरपूर आणि आटपाडी भागातील मऊ बियांचे आणि चमकदार सालीचे उत्तम दर्जाचे भगवा डाळिंब."
+      : "Flawless soft-seeded Bhagwa pomegranates procured directly from orchards in Sangola, Pandharpur, and Atpadi.",
+    season: lang === 'mr' ? "ऑगस्ट ते फेब्रुवारी" : "August to February"
+  },
+  {
+    id: "gal-raisins",
+    title: lang === 'mr' ? "सांगली-तासगाव पिवळा बेदाणा" : "Golden Tasgaon Raisins (Bedana)",
+    category: "dry",
+    category_label: lang === 'mr' ? "सुका मेवा" : "Dry Fruits",
+    image: "/images/raisins.jpg",
+    badge: lang === 'mr' ? "नैसर्गिक शेड वाळवण • AAA ग्रेड" : "Naturally Shed-Dried • AAA Sort",
+    region: lang === 'mr' ? "तासगाव व सांगली बाजार समिती" : "Tasgaon & Sangli APMC",
+    desc: lang === 'mr'
+      ? "पारंपरिक शेड पद्धतीमध्ये नैसर्गिकरित्या वाळवलेला दर्जेदार हिरवा व पिवळा बेदाणा."
+      : "Premium sun-dried green and golden raisins processed in traditional local drying sheds with zero chemical residue.",
+    season: lang === 'mr' ? "फेब्रुवारी ते जून" : "February to June"
+  },
+  {
+    id: "gal-almonds",
+    title: lang === 'mr' ? "कॅलिफोर्निया व मामरा बदाम" : "California & Mamra Almonds",
+    category: "dry",
+    category_label: lang === 'mr' ? "सुका मेवा" : "Dry Fruits",
+    image: "/images/almonds.jpg",
+    badge: lang === 'mr' ? "नॉनपरेल २७/३० • खात्रीशीर गोड" : "Nonpareil 27/30 • 100% Sweet",
+    region: lang === 'mr' ? "थेट आयात व संकलन" : "Direct Import & Sourcing",
+    desc: lang === 'mr'
+      ? "घाऊक वितरण व पॅकिंगसाठी निवडक, एकसमान आकाराचे संपूर्ण बदाम गर."
+      : "Whole kernel almonds sorted and vacuum-sealed for domestic wholesale distribution and export packaging.",
+    season: lang === 'mr' ? "वर्षभर उपलब्ध" : "Year-round"
+  },
+  {
+    id: "gal-dates",
+    title: lang === 'mr' ? "शाही मेदजूल व किमिया खजूर" : "Royal Medjool & Kimia Dates",
+    category: "dry",
+    category_label: lang === 'mr' ? "सुका मेवा" : "Dry Fruits",
+    image: "/images/dates.jpg",
+    badge: lang === 'mr' ? "जम्बो आकार • मऊ व रसाळ" : "Jumbo Grade • Soft & Rich",
+    region: lang === 'mr' ? "निवडक प्रीमियम लॉट्स" : "Selected Import Lots",
+    desc: lang === 'mr'
+      ? "सण-उत्सव भेटवस्तू, घाऊक व्यापारी आणि पॅकिंगसाठी नैसर्गिक मऊ व चवदार खजूर."
+      : "Plump, caramel-textured natural dates curated for festival gifting, wholesale dealers, and premium retail packaging.",
+    season: lang === 'mr' ? "वर्षभर (ऑगस्ट-नोव्हेंबर मुख्य)" : "Year-round (Peak Aug-Nov)"
+  },
+  {
+    id: "gal-cashews",
+    title: lang === 'mr' ? "कोकण काजू गर" : "Konkan Whole Cashew Kernels",
+    category: "dry",
+    category_label: lang === 'mr' ? "सुका मेवा" : "Dry Fruits",
+    image: "/images/cashews.jpg",
+    badge: lang === 'mr' ? "W-180 / W-240 एक्सपोर्ट किंग" : "W-180 / W-240 Export King",
+    region: lang === 'mr' ? "वेंगुर्ला व रत्नागिरी" : "Vengurla & Ratnagiri Origin",
+    desc: lang === 'mr'
+      ? "पांढरे शुभ्र, कुरकुरीत आणि एकसमान आकाराचे संपूर्ण काजू गर."
+      : "Giant white whole cashew kernels dry-roasted and graded for crunch, uniform size, and export standard moisture content.",
+    season: lang === 'mr' ? "मार्च ते जुलै" : "March to July"
+  },
+  {
+    id: "gal-sorting",
+    title: lang === 'mr' ? "प्रतवारी व सॉर्टिंग बेल्ट" : "Optical & Manual Grading Belt",
+    category: "process",
+    category_label: lang === 'mr' ? "पॅकहाऊस" : "Packhouse",
+    image: "/images/process-sorting.jpg",
+    badge: lang === 'mr' ? "आकार, रंग व ब्रिक्स तपासणी" : "Size, Color & Brix Monitored",
+    region: lang === 'mr' ? "मनेराजुरी पॅकहाऊस" : "Manerajuri Packhouse",
+    desc: lang === 'mr'
+      ? "पॅकिंगपूर्वी प्रत्येक क्रेटची बहुस्तरीय प्रतवारी केली जाते; लहान किंवा खराब फळे वेगळी केली जातात."
+      : "Every crate undergoes multi-stage sorting where undersized, damaged, or unripe berries are separated before packing.",
+    season: lang === 'mr' ? "वर्षभर कार्यरत" : "Active Year-round"
+  },
+  {
+    id: "gal-weighing",
+    title: lang === 'mr' ? "प्रमाणित डिजिटल वजनकाटा" : "Calibrated Digital Weighbridge",
+    category: "process",
+    category_label: lang === 'mr' ? "पॅकहाऊस" : "Packhouse",
+    image: "/images/process-weighing.jpg",
+    badge: lang === 'mr' ? "कायदेशीर मापन प्रमाणित" : "Legal Metrology Certified",
+    region: lang === 'mr' ? "गट नं. ४७९ वजन केंद्र" : "Gat No. 479 Weigh Centre",
+    desc: lang === 'mr'
+      ? "वजन व मापे विभागाद्वारे प्रमाणित इलेक्ट्रॉनिक वजनकाटा. तुमच्या समक्ष तत्काळ डिजिटल वजन पावती दिली जाते."
+      : "Electronic scales verified under Weights and Measures standards. Digital weight slips are printed immediately in your presence.",
+    season: lang === 'mr' ? "वर्षभर कार्यरत" : "Active Year-round"
+  },
+  {
+    id: "gal-packing",
+    title: lang === 'mr' ? "निर्यात पॅकिंग व कोल्ड पॅलेट" : "Export Punnets & Cold Pallets",
+    category: "process",
+    category_label: lang === 'mr' ? "पॅकहाऊस" : "Packhouse",
+    image: "/images/origin-plate.jpg",
+    badge: lang === 'mr' ? "कोल्ड चेन रेडी • CFB बॉक्सेस" : "Cold Chain Ready • CFB Boxes",
+    region: lang === 'mr' ? "थेट डिस्पॅच केंद्र" : "Direct Despatch Facility",
+    desc: lang === 'mr'
+      ? "५०० ग्रॅम पनेट, ५ किलो व्हेंटिलेटेड CFB बॉक्सेस आणि कोल्ड-चेन वाहतुकीसाठी सुरक्षित पॅलेटिंग."
+      : "Standard 500g punnets, 5kg ventilated CFB master cartons, and palletized loading for refrigerated transit to ports and mandis.",
+    season: lang === 'mr' ? "वर्षभर कार्यरत" : "Active Year-round"
+  }
+];
+
+const galleryDict = dict.gallery || {};
+---
+
+<!-- Animated Product & Packhouse Gallery Section -->
+<section class="section-opaque gallery-section" id="gallery" aria-label="Product and packhouse gallery">
+  <div class="container">
+    
+    <!-- Section Header -->
+    <div class="section-header">
+      <span class="section-tag">{galleryDict.tag || (lang === 'mr' ? 'निर्यात शेतमाल व पॅकहाऊस गॅलरी' : 'EXPORT PRODUCE & PACKHOUSE SHOWCASE')}</span>
+      <h2 class="section-title">{galleryDict.title || (lang === 'mr' ? 'शेतमाल व पॅकहाऊस गॅलरी' : 'Produce & Packhouse Gallery')}</h2>
+      <p class="section-subtitle">
+        {galleryDict.subtitle || (lang === 'mr'
+          ? 'डीजे फ्रूट्सकडे थेट खरेदी केल्या जाणाऱ्या उच्च दर्जाच्या फळांचे, सुक्या मेव्याचे आणि अचूक वजन व प्रतवारी प्रक्रियेचे थेट दर्शन.'
+          : 'Explore export-grade fruits, premium sun-dried raisins, select dry fruit lots, and calibrated sorting operations at DJ Fruits.')}
+      </p>
+    </div>
+
+    <!-- Category Filter Controls with Micro-Animations -->
+    <div class="gallery-controls">
+      <div class="gallery-filter-bar" role="tablist" aria-label="Gallery category filters">
+        <button
+          type="button"
+          class="gallery-filter-btn active"
+          data-filter="all"
+          role="tab"
+          aria-selected="true"
+          id="tab-all"
+        >
+          <span class="filter-dot"></span>
+          <span>{galleryDict.filter_all || (lang === 'mr' ? 'सर्व शेतमाल' : 'All Produce')}</span>
+          <span class="filter-count">9</span>
+        </button>
+
+        <button
+          type="button"
+          class="gallery-filter-btn"
+          data-filter="fresh"
+          role="tab"
+          aria-selected="false"
+          id="tab-fresh"
+        >
+          <span class="filter-dot"></span>
+          <span>{galleryDict.filter_fresh || (lang === 'mr' ? 'ताजी फळे' : 'Fresh Fruits')}</span>
+          <span class="filter-count">2</span>
+        </button>
+
+        <button
+          type="button"
+          class="gallery-filter-btn"
+          data-filter="dry"
+          role="tab"
+          aria-selected="false"
+          id="tab-dry"
+        >
+          <span class="filter-dot"></span>
+          <span>{galleryDict.filter_dry || (lang === 'mr' ? 'सुका मेवा व बेदाणा' : 'Dry Fruits & Raisins')}</span>
+          <span class="filter-count">4</span>
+        </button>
+
+        <button
+          type="button"
+          class="gallery-filter-btn"
+          data-filter="process"
+          role="tab"
+          aria-selected="false"
+          id="tab-process"
+        >
+          <span class="filter-dot"></span>
+          <span>{galleryDict.filter_process || (lang === 'mr' ? 'पॅकहाऊस व प्रतवारी' : 'Packhouse & Grading')}</span>
+          <span class="filter-count">3</span>
+        </button>
+      </div>
+
+      <!-- Private Quote Assurance Badge -->
+      <div class="quote-guarantee-pill">
+        <span class="guarantee-icon">⚖️</span>
+        <span>{galleryDict.quote_note || (lang === 'mr' ? 'शेतमालाचा दर्जा व गोडवा तपासून थेट खरेदी दर निश्चित केला जातो.' : 'Purchase rates are determined upon physical inspection, brix sweetness, and grade.')}</span>
+      </div>
+    </div>
+
+    <!-- Animated Cards Grid -->
+    <div class="gallery-grid" id="gallery-grid">
+      {galleryItems.map((item: any, index: number) => (
+        <article
+          class="gallery-card"
+          data-category={item.category}
+          id={`gallery-item-${index + 1}`}
+          tabindex="0"
+          role="button"
+          aria-label={`View details for ${item.title}`}
+          data-item={JSON.stringify(item)}
+        >
+          <!-- Media Showcase with Zoom Micro-Animation -->
+          <div class="card-media-wrap">
+            <img
+              src={item.image}
+              alt={item.title}
+              class="card-img"
+              loading="lazy"
+              width="600"
+              height="420"
+            />
+            
+            <!-- Category Tag -->
+            <span class={`card-category-badge cat-${item.category}`}>
+              {item.category_label}
+            </span>
+
+            <!-- Quality Spec Chip -->
+            <div class="card-spec-overlay">
+              <span class="spec-chip">✨ {item.badge}</span>
+            </div>
+          </div>
+
+          <!-- Card Content Body -->
+          <div class="card-body">
+            <div class="card-meta-row">
+              <span class="card-region">📍 {item.region}</span>
+              <span class="card-season">🗓️ {item.season}</span>
+            </div>
+
+            <h3 class="card-title">{item.title}</h3>
+            <p class="card-desc">{item.desc}</p>
+
+            <div class="card-footer">
+              <span class="view-link">
+                <span>{galleryDict.view_details || (lang === 'mr' ? 'सविस्तर माहिती पहा' : 'View Details')}</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </span>
+
+              <span class="quote-tag">
+                {lang === 'mr' ? 'थेट खात्रीशीर दर' : 'Direct Quote'}
+              </span>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Bottom Action CTA -->
+    <div class="gallery-bottom-cta">
+      <div class="bottom-cta-text">
+        <h4>{lang === 'mr' ? 'तुमच्याकडे यापैकी कोणताही शेतमाल विक्रीस तयार आहे का?' : 'Do you have export-grade produce ready for sale?'}</h4>
+        <p>{lang === 'mr' ? 'थेट आमच्या मनेराजुरी संकलन केंद्राशी बोला किंवा डिजिटल नोंद पावती भरा.' : 'Connect directly with our Manerajuri packhouse team or register your crop lot.'}</p>
+      </div>
+
+      <div class="bottom-cta-actions">
+        <a href="#weighing-slip" class="btn btn-secondary">
+          <span>{lang === 'mr' ? 'शेतमाल नोंद पावती भरा' : 'Register Farm Lot'}</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+          </svg>
+        </a>
+
+        <a
+          href="https://wa.me/919130659595?text=Hello%20DJ%20Fruits%2C%20I%20want%20to%20enquire%20about%20selling%20my%20produce."
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-whatsapp"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 6.46 17.5 2 12.04 2M12.05 3.67C16.58 3.67 20.28 7.37 20.28 11.92C20.28 16.46 16.58 20.17 12.04 20.17C10.59 20.17 9.17 19.79 7.92 19.05L7.62 18.87L4.5 19.69L5.33 16.65L5.13 16.33C4.33 15.05 3.8 13.51 3.8 11.91C3.81 7.37 7.51 3.67 12.05 3.67Z"/>
+          </svg>
+          <span>{lang === 'mr' ? 'व्हॉट्सॲपवर चौकशी करा' : 'Inquire on WhatsApp'}</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Interactive Lightbox Modal -->
+  <div class="gallery-modal" id="gallery-lightbox-modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal-dialog">
+      <button type="button" class="modal-close-btn" id="modal-close-btn" aria-label="Close modal">
+        &times;
+      </button>
+
+      <div class="modal-content">
+        <div class="modal-media-col">
+          <img src="" alt="" class="modal-img" id="modal-img" />
+          <div class="modal-tag-overlay" id="modal-category-tag"></div>
+        </div>
+
+        <div class="modal-info-col">
+          <div class="modal-header-meta">
+            <span class="modal-badge-pill" id="modal-badge"></span>
+            <span class="modal-region-txt" id="modal-region"></span>
+          </div>
+
+          <h3 class="modal-title" id="modal-title"></h3>
+          <p class="modal-desc" id="modal-desc"></p>
+
+          <div class="modal-specs-list">
+            <div class="modal-spec-row">
+              <strong>{galleryDict.modal_spec_label || (lang === 'mr' ? 'प्रतवारी मानके:' : 'Grade Standards:')}</strong>
+              <span id="modal-spec-val"></span>
+            </div>
+            <div class="modal-spec-row">
+              <strong>{galleryDict.modal_season_label || (lang === 'mr' ? 'खरेदी हंगाम:' : 'Procurement Window:')}</strong>
+              <span id="modal-season-val"></span>
+            </div>
+            <div class="modal-spec-row">
+              <strong>{lang === 'mr' ? 'खरेदी दर:' : 'Procurement Rate:'}</strong>
+              <span class="text-leaf-bold">{lang === 'mr' ? 'तपासणीनंतर खात्रीशीर खरेदी दर (दर जाहीर केला जात नाही)' : 'Custom quote confirmed upon lot inspection & brix testing (unlisted)'}</span>
+            </div>
+          </div>
+
+          <div class="modal-actions-row">
+            <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp modal-wa-btn" id="modal-wa-btn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 6.46 17.5 2 12.04 2M12.05 3.67C16.58 3.67 20.28 7.37 20.28 11.92C20.28 16.46 16.58 20.17 12.04 20.17C10.59 20.17 9.17 19.79 7.92 19.05L7.62 18.87L4.5 19.69L5.33 16.65L5.13 16.33C4.33 15.05 3.8 13.51 3.8 11.91C3.81 7.37 7.51 3.67 12.05 3.67Z"/>
+              </svg>
+              <span>{galleryDict.enquire_btn || (lang === 'mr' ? 'या शेतमालासाठी व्हॉट्सॲपवर बोला' : 'Enquire on WhatsApp')}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .gallery-section {
+    padding: 5.5rem 0;
+    position: relative;
+    background-color: var(--mist);
+    border-top: 1px solid var(--border-rule);
+    border-bottom: 1px solid var(--border-rule);
+  }
+
+  /* Filter Controls Bar */
+  .gallery-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin-bottom: 2.75rem;
+  }
+
+  .gallery-filter-bar {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+    background: #FFFFFF;
+    padding: 0.35rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border-rule);
+    box-shadow: 2px 2px 0px rgba(15, 59, 44, 0.08);
+  }
+
+  .gallery-filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1rem;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .filter-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #BAC9B7;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .filter-count {
+    font-size: 0.75rem;
+    padding: 0.1rem 0.45rem;
+    background: rgba(15, 59, 44, 0.08);
+    border-radius: 999px;
+    color: var(--ink-dim);
+  }
+
+  .gallery-filter-btn:hover {
+    color: var(--canopy);
+    background: rgba(46, 125, 79, 0.08);
+  }
+
+  .gallery-filter-btn.active {
+    background-color: var(--canopy);
+    color: #FFFFFF;
+    border-color: var(--canopy);
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.15);
+  }
+
+  .gallery-filter-btn.active .filter-dot {
+    background-color: var(--sprout);
+    transform: scale(1.3);
+  }
+
+  .gallery-filter-btn.active .filter-count {
+    background: rgba(255, 255, 255, 0.2);
+    color: #FFFFFF;
+  }
+
+  .quote-guarantee-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.95rem;
+    background: #FAFBF8;
+    border: 1px dashed var(--leaf);
+    border-radius: 999px;
+    font-size: 0.8125rem;
+    color: var(--canopy);
+    font-weight: 600;
+  }
+
+  .guarantee-icon {
+    font-size: 1rem;
+  }
+
+  /* Gallery Grid */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 1.75rem;
+  }
+
+  /* Card Item */
+  .gallery-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border-rule);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 3px 3px 0px rgba(15, 59, 44, 0.08);
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .gallery-card:hover, .gallery-card:focus-visible {
+    transform: translateY(-6px);
+    box-shadow: 6px 6px 0px var(--canopy);
+    border-color: var(--canopy);
+    outline: none;
+  }
+
+  .gallery-card.hidden {
+    display: none;
+  }
+
+  .gallery-card.fade-out {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  /* Media Wrap */
+  .card-media-wrap {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+    background-color: #0A241B;
+  }
+
+  .card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .gallery-card:hover .card-img {
+    transform: scale(1.06);
+  }
+
+  .card-category-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 0.25rem 0.65rem;
+    border-radius: var(--radius);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  }
+
+  .cat-fresh {
+    background: rgba(46, 125, 79, 0.9);
+    color: #FFFFFF;
+    border: 1px solid rgba(143, 191, 106, 0.6);
+  }
+
+  .cat-dry {
+    background: rgba(185, 133, 43, 0.9);
+    color: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+  }
+
+  .cat-process {
+    background: rgba(15, 59, 44, 0.9);
+    color: var(--sprout);
+    border: 1px solid rgba(143, 191, 106, 0.4);
+  }
+
+  .card-spec-overlay {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+    pointer-events: none;
+  }
+
+  .spec-chip {
+    display: inline-block;
+    background: rgba(7, 24, 17, 0.82);
+    color: #FFFFFF;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Card Body */
+  .card-body {
+    padding: 1.35rem 1.45rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .card-meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78125rem;
+    color: var(--ink-dim);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--canopy);
+    margin-bottom: 0.5rem;
+  }
+
+  .card-desc {
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--ink);
+    margin-bottom: 1.25rem;
+    flex-grow: 1;
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0.95rem;
+    border-top: 1px solid rgba(200, 214, 198, 0.6);
+  }
+
+  .view-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--leaf);
+    transition: gap 0.15s ease, color 0.15s ease;
+  }
+
+  .gallery-card:hover .view-link {
+    color: var(--canopy);
+    gap: 0.55rem;
+  }
+
+  .quote-tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.55rem;
+    background: rgba(46, 125, 79, 0.1);
+    color: var(--leaf);
+    border-radius: var(--radius);
+  }
+
+  /* Bottom Banner CTA */
+  .gallery-bottom-cta {
+    margin-top: 3.5rem;
+    background: #0B291E;
+    color: #FFFFFF;
+    border-radius: var(--radius);
+    padding: 2rem 2.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    box-shadow: var(--shadow-hard);
+  }
+
+  .bottom-cta-text h4 {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    color: #FFFFFF;
+    margin-bottom: 0.35rem;
+  }
+
+  .bottom-cta-text p {
+    font-size: 0.9375rem;
+    color: #D3E2CF;
+    margin: 0;
+  }
+
+  .bottom-cta-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  /* Lightbox Modal */
+  .gallery-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    box-sizing: border-box;
+  }
+
+  .gallery-modal.open {
+    display: flex;
+  }
+
+  .modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(7, 24, 17, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    animation: fadeIn 0.25s ease forwards;
+  }
+
+  .modal-dialog {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 820px;
+    background: #FAFBF8;
+    border: 2px solid var(--canopy);
+    border-radius: var(--radius);
+    box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.45);
+    overflow: hidden;
+    animation: popUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .modal-close-btn {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    z-index: 10;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #FFFFFF;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease;
+  }
+
+  .modal-close-btn:hover {
+    background: #000000;
+  }
+
+  .modal-content {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+  }
+
+  .modal-media-col {
+    position: relative;
+    background: #0A241B;
+    min-height: 340px;
+  }
+
+  .modal-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .modal-tag-overlay {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+  }
+
+  .modal-info-col {
+    padding: 2.25rem 2rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .modal-header-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .modal-badge-pill {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--leaf);
+    background: rgba(46, 125, 79, 0.12);
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+  }
+
+  .modal-region-txt {
+    font-size: 0.8125rem;
+    color: var(--ink-dim);
+    font-weight: 500;
+  }
+
+  .modal-title {
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: var(--canopy);
+    margin-bottom: 0.75rem;
+  }
+
+  .modal-desc {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+
+  .modal-specs-list {
+    background: #FFFFFF;
+    border: 1px solid var(--border-rule);
+    border-radius: var(--radius);
+    padding: 1rem 1.15rem;
+    margin-bottom: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .modal-spec-row {
+    font-size: 0.84375rem;
+    line-height: 1.4;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .modal-spec-row strong {
+    color: var(--canopy);
+  }
+
+  .text-leaf-bold {
+    color: var(--leaf);
+    font-weight: 700;
+  }
+
+  .modal-actions-row {
+    margin-top: auto;
+  }
+
+  .modal-wa-btn {
+    width: 100%;
+    padding: 0.85rem 1.25rem;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes popUp {
+    from { opacity: 0; transform: scale(0.92) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  @media (max-width: 768px) {
+    .gallery-grid {
+      grid-template-columns: 1fr;
+    }
+    .modal-content {
+      grid-template-columns: 1fr;
+    }
+    .modal-media-col {
+      height: 220px;
+      min-height: auto;
+    }
+    .modal-info-col {
+      padding: 1.5rem 1.25rem;
+    }
+    .gallery-bottom-cta {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 1.5rem;
+    }
+    .bottom-cta-actions {
+      width: 100%;
+      flex-direction: column;
+    }
+    .bottom-cta-actions .btn {
+      width: 100%;
+    }
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1. Category Filtering with Smooth CSS Animations
+    const filterBtns = document.querySelectorAll('.gallery-filter-btn');
+    const cards = document.querySelectorAll('.gallery-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetFilter = btn.getAttribute('data-filter');
+
+        // Update active button state
+        filterBtns.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+
+        // Animate cards
+        cards.forEach(card => {
+          const category = card.getAttribute('data-category');
+          const isMatch = targetFilter === 'all' || category === targetFilter;
+
+          if (isMatch) {
+            card.classList.remove('hidden');
+            // Staggered reveal
+            requestAnimationFrame(() => {
+              card.classList.remove('fade-out');
+            });
+          } else {
+            card.classList.add('fade-out');
+            setTimeout(() => {
+              if (card.classList.contains('fade-out')) {
+                card.classList.add('hidden');
+              }
+            }, 200);
+          }
+        });
+      });
+    });
+
+    // 2. Interactive Lightbox Modal
+    const modal = document.getElementById('gallery-lightbox-modal');
+    const backdrop = document.getElementById('modal-backdrop');
+    const closeBtn = document.getElementById('modal-close-btn');
+
+    const modalImg = document.getElementById('modal-img');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDesc = document.getElementById('modal-desc');
+    const modalBadge = document.getElementById('modal-badge');
+    const modalRegion = document.getElementById('modal-region');
+    const modalSpecVal = document.getElementById('modal-spec-val');
+    const modalSeasonVal = document.getElementById('modal-season-val');
+    const modalWaBtn = document.getElementById('modal-wa-btn');
+
+    function openModal(data) {
+      if (!modal || !data) return;
+
+      modalImg.src = data.image;
+      modalImg.alt = data.title;
+      modalTitle.textContent = data.title;
+      modalDesc.textContent = data.desc;
+      modalBadge.textContent = data.badge;
+      modalRegion.textContent = `📍 ${data.region}`;
+      modalSpecVal.textContent = data.badge;
+      modalSeasonVal.textContent = data.season || 'Active Season';
+
+      const waMsg = `Hello DJ Fruits, I would like to enquire about supplying or selling [${data.title}] from my farm / collection centre.`;
+      modalWaBtn.href = `https://wa.me/919130659595?text=${encodeURIComponent(waMsg)}`;
+
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      if (!modal) return;
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        try {
+          const itemData = JSON.parse(card.getAttribute('data-item') || '{}');
+          openModal(itemData);
+        } catch (e) {
+          console.error('Failed to parse card data', e);
+        }
+      });
+
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.click();
+        }
+      });
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (backdrop) backdrop.addEventListener('click', closeModal);
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal && modal.classList.contains('open')) {
+        closeModal();
+      }
+    });
+  });
+</script>

@@ -1,18 +1,19 @@
 {
   "nav": {
     "home": "Home",
-    "farmers": "Farmers & Rates",
-    "products": "Products We Buy",
-    "origin": "Origin & Belt",
-    "blog": "Farmer Advisory",
-    "contact": "Contact Us",
-    "sell_cta": "Sell to us (WhatsApp)"
+    "gallery": "Gallery",
+    "farmers": "Farmers",
+    "products": "Products",
+    "origin": "Origin Belt",
+    "blog": "Advisory",
+    "contact": "Contact",
+    "sell_cta": "Sell to us"
   },
   "hero": {
     "h1": "We buy fruit and dry fruit directly from growers and dealers.",
-    "subline": "Transparent digital weighing, confirmed fair market rates, and direct bank settlement for your harvest.",
+    "subline": "Transparent digital weighing, direct farm inspection, and immediate bank settlement for your harvest.",
     "cta_sell": "Sell to us on WhatsApp",
-    "cta_rates": "See today's mandi rates",
+    "cta_gallery": "Explore Product Gallery",
     "trust": {
       "collection": "Direct Packhouse: Manerajuri, Sangli",
       "districts": "Sourcing: Sangli, Solapur, Nashik & Pune",
@@ -32,8 +33,8 @@
       },
       {
         "num": "02",
-        "title": "We quote our reference rate",
-        "desc": "We review current APMC modal prices and confirm our buying rate based on crop quality, brix, and grade."
+        "title": "Farm inspection & custom quote",
+        "desc": "We evaluate crop quality, berry size, brix sweetness, and grade at your farm or centre and offer a confirmed direct purchase quote."
       },
       {
         "num": "03",
@@ -46,29 +47,9 @@
         "desc": "Transparent electronic weighing at the scale. Immediate payment transfer to your verified bank account upon grading."
       }
     ],
-    "rates": {
-      "tag": "DAILY MARKET BENCHMARK",
-      "title": "Today's Mandi Rates",
-      "subtitle": "Daily wholesale modal prices from government APMC markets across Maharashtra.",
-      "unit_toggle_quintal": "₹ / Quintal",
-      "unit_toggle_kg": "₹ / Kg",
-      "state_label": "State: Maharashtra",
-      "market_label": "Select Mandi:",
-      "filter_all": "All Crops",
-      "min_price": "Min Price",
-      "modal_price": "Modal Price",
-      "max_price": "Max Price",
-      "arrivals": "Arrivals",
-      "last_updated": "Last updated",
-      "source_notice": "Source: Agmarknet, Government of India. Wholesale mandi prices, indicative only.",
-      "our_reference_title": "Our Reference Buying Rates (Dry Fruits & Special Lots)",
-      "our_reference_note": "Reference rate dated 10 Oct 2026. Final rate determined upon moisture testing and grading at packhouse.",
-      "grade_label": "Grade / Variety:",
-      "delivery_label": "Delivery Point:"
-    },
     "slip": {
       "badge": "SIGNATURE WEIGHING SLIP (PAVTI)",
-      "title": "Calculate estimated value & generate your sale request",
+      "title": "Register your farm lot & generate an official inquiry slip",
       "role_farmer": "I am a Farmer",
       "role_dealer": "I am a Dealer / Trader",
       "crop_label": "Select Crop / Commodity",
@@ -86,12 +67,14 @@
       "receipt_seller": "SELLER:",
       "receipt_location": "LOCATION:",
       "receipt_qty": "ESTIMATED QUANTITY:",
-      "receipt_benchmark": "MANDI BENCHMARK MODAL:",
-      "receipt_est_value": "ESTIMATED LOT VALUE:",
-      "receipt_disclaimer": "Estimate only. Final purchase rate is confirmed after quality inspection and certified digital weighing at packhouse.",
-      "send_whatsapp_btn": "Send my details on WhatsApp",
+      "receipt_status": "QUOTE STATUS:",
+      "receipt_status_val": "Direct Custom Quote on Inspection",
+      "receipt_payment": "SETTLEMENT:",
+      "receipt_payment_val": "Immediate Direct Bank Transfer upon Weighing",
+      "receipt_disclaimer": "Individual purchase rates are offered following physical quality inspection, brix sweetness measurement, and certified digital weighing.",
+      "send_whatsapp_btn": "Send Lot Registration on WhatsApp",
       "fallback_email_btn": "Or submit via Email Form",
-      "stamp_text": "SLIP RECEIVED\nपावती स्वीकृत"
+      "stamp_text": "SLIP GENERATED\nपावती नोंदणी"
     },
     "promises": {
       "title": "Our commitments to growers",
@@ -229,7 +212,7 @@
   "blog": {
     "tag": "FARMER ADVISORY",
     "title": "Practical guidance for growers & dealers",
-    "subtitle": "Field notes on export quality standards, mandi price reporting, and fair trading practices.",
+    "subtitle": "Field notes on export quality standards, post-harvest grading, and fair trading practices.",
     "read_more": "Read advisory",
     "reading_time": "min read",
     "draft_notice": "Draft article under operator review",
@@ -256,6 +239,123 @@
     "submit_btn": "Send Enquiry",
     "success_msg": "Thank you! Your enquiry has been received. Our team will contact you shortly.",
     "error_msg": "Please check the highlighted fields and try again."
+  },
+  "gallery": {
+    "tag": "EXPORT PRODUCE & PACKHOUSE SHOWCASE",
+    "title": "Produce & Packhouse Gallery",
+    "subtitle": "Explore export-grade fruits, premium sun-dried raisins, select dry fruit lots, and calibrated sorting operations at DJ Fruits.",
+    "filter_all": "All Produce",
+    "filter_fresh": "Fresh Fruits",
+    "filter_dry": "Dry Fruits & Raisins",
+    "filter_process": "Packhouse & Grading",
+    "enquire_btn": "Enquire on WhatsApp",
+    "view_details": "View Details",
+    "close_modal": "Close Preview",
+    "quote_note": "Purchase rates are determined upon physical inspection, brix sweetness, and grade at farm/packhouse.",
+    "modal_region_label": "Sourcing Hub:",
+    "modal_spec_label": "Grade Standards:",
+    "modal_season_label": "Procurement Window:",
+    "items": [
+      {
+        "id": "gal-grapes",
+        "title": "Fresh Export Grapes",
+        "category": "fresh",
+        "category_label": "Fresh Fruit",
+        "image": "/images/grapes.jpg",
+        "badge": "16mm+ Berry • Brix 16°+",
+        "region": "Sangli & Nashik Belts",
+        "desc": "Crisp, high-brix Thompson Seedless, Sonaka, and Super Sonaka table grapes harvested from verified vineyards across Tasgaon, Miraj, and Niphad.",
+        "season": "December to April"
+      },
+      {
+        "id": "gal-pomegranate",
+        "title": "Bhagwa Pomegranate",
+        "category": "fresh",
+        "category_label": "Fresh Fruit",
+        "image": "/images/pomegranate.jpg",
+        "badge": "Glossy Deep Red • 250g-400g+",
+        "region": "Solapur & Sangli Hubs",
+        "desc": "Flawless soft-seeded Bhagwa pomegranates procured directly from orchards in Sangola, Pandharpur, and Atpadi.",
+        "season": "August to February"
+      },
+      {
+        "id": "gal-raisins",
+        "title": "Golden Tasgaon Raisins (Bedana)",
+        "category": "dry",
+        "category_label": "Dry Fruits",
+        "image": "/images/raisins.jpg",
+        "badge": "Naturally Shed-Dried • AAA Sort",
+        "region": "Tasgaon & Sangli APMC",
+        "desc": "Premium sun-dried green and golden raisins processed in traditional local drying sheds with zero chemical residue.",
+        "season": "February to June"
+      },
+      {
+        "id": "gal-almonds",
+        "title": "California & Mamra Almonds",
+        "category": "dry",
+        "category_label": "Dry Fruits",
+        "image": "/images/almonds.jpg",
+        "badge": "Nonpareil 27/30 • 100% Sweet",
+        "region": "Direct Import & Sourcing",
+        "desc": "Whole kernel almonds sorted and vacuum-sealed for domestic wholesale distribution and export packaging.",
+        "season": "Year-round"
+      },
+      {
+        "id": "gal-dates",
+        "title": "Royal Medjool & Kimia Dates",
+        "category": "dry",
+        "category_label": "Dry Fruits",
+        "image": "/images/dates.jpg",
+        "badge": "Jumbo Grade • Soft & Rich",
+        "region": "Selected Import Lots",
+        "desc": "Plump, caramel-textured natural dates curated for festival gifting, wholesale dealers, and premium retail packaging.",
+        "season": "Year-round (Peak Aug-Nov)"
+      },
+      {
+        "id": "gal-cashews",
+        "title": "Konkan Whole Cashew Kernels",
+        "category": "dry",
+        "category_label": "Dry Fruits",
+        "image": "/images/cashews.jpg",
+        "badge": "W-180 / W-240 Export King",
+        "region": "Vengurla & Ratnagiri Origin",
+        "desc": "Giant white whole cashew kernels dry-roasted and graded for crunch, uniform size, and export standard moisture content.",
+        "season": "March to July"
+      },
+      {
+        "id": "gal-sorting",
+        "title": "Optical & Manual Grading Belt",
+        "category": "process",
+        "category_label": "Packhouse",
+        "image": "/images/process-sorting.jpg",
+        "badge": "Size, Color & Brix Monitored",
+        "region": "Manerajuri Packhouse",
+        "desc": "Every crate undergoes multi-stage sorting where undersized, damaged, or unripe berries are separated before packing.",
+        "season": "Active Year-round"
+      },
+      {
+        "id": "gal-weighing",
+        "title": "Calibrated Digital Weighbridge",
+        "category": "process",
+        "category_label": "Packhouse",
+        "image": "/images/process-weighing.jpg",
+        "badge": "Legal Metrology Certified",
+        "region": "Gat No. 479 Weigh Centre",
+        "desc": "Electronic scales verified under Weights and Measures standards. Digital weight slips are printed immediately in your presence.",
+        "season": "Active Year-round"
+      },
+      {
+        "id": "gal-packing",
+        "title": "Export Punnets & Cold Pallets",
+        "category": "process",
+        "category_label": "Packhouse",
+        "image": "/images/origin-plate.jpg",
+        "badge": "Cold Chain Ready • CFB Boxes",
+        "region": "Direct Despatch Facility",
+        "desc": "Standard 500g punnets, 5kg ventilated CFB master cartons, and palletized loading for refrigerated transit to ports and mandis.",
+        "season": "Active Year-round"
+      }
+    ]
   },
   "footer": {
     "brand_tag": "Direct farm procurement & export supply chain.",

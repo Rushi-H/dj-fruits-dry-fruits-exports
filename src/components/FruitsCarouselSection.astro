@@ -1,0 +1,77 @@
+---
+import FruitsCarousel from './FruitsCarousel';
+
+interface Props {
+  lang: 'en' | 'mr';
+  dict: any;
+}
+
+const { lang, dict } = Astro.props;
+
+const tag = lang === 'mr' ? '३D इंटरॲक्टिव्ह शोकेस' : '3D INTERACTIVE SHOWCASE';
+const title = lang === 'mr' 
+  ? 'थेट बागेतील दर्जेदार फळे व सुका मेवा' 
+  : 'Premium Fresh Produce & Dry Fruits Showcase';
+const subtitle = lang === 'mr'
+  ? 'फोटोंवर कुठेही टॅप करा किंवा स्वाइप करा — रिअल-टाइम 3D वॉटर रिपल इफेक्ट आणि लिक्विड ट्रान्झिशन अनुभवा.'
+  : 'Tap or click anywhere on the imagery to experience real-time 3D WebGL water ripple refraction and fluid transitions.';
+---
+
+<section class="fruits-carousel-wrapper" id="fruits-3d-showcase" aria-label="3D Fruits Ripple Showcase">
+  <div class="container">
+    <div class="carousel-section-header">
+      <span class="section-tag section-tag--sprout">{tag}</span>
+      <h2 class="section-title text-light">{title}</h2>
+      <p class="section-subtitle text-dim">{subtitle}</p>
+    </div>
+  </div>
+
+  <!-- Full-Bleed 3D Ripple Canvas Component with React Client Hydration -->
+  <div class="carousel-container-outer">
+    <FruitsCarousel client:idle lang={lang} />
+  </div>
+</section>
+
+<style>
+  .fruits-carousel-wrapper {
+    background-color: #071E15;
+    padding: 5rem 0 3.5rem;
+    position: relative;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    overflow: hidden;
+  }
+
+  .carousel-section-header {
+    margin-bottom: 2.25rem;
+  }
+
+  .section-tag--sprout {
+    color: var(--sprout);
+    background: rgba(143, 191, 106, 0.12);
+    border: 1px solid rgba(143, 191, 106, 0.35);
+  }
+
+  .text-light {
+    color: #FFFFFF !important;
+  }
+
+  .text-dim {
+    color: #D3DFD0 !important;
+  }
+
+  .carousel-container-outer {
+    width: 100%;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  }
+
+  @media (max-width: 768px) {
+    .fruits-carousel-wrapper {
+      padding: 3.5rem 0 2.5rem;
+    }
+    .carousel-section-header {
+      margin-bottom: 1.5rem;
+    }
+  }
+</style>
