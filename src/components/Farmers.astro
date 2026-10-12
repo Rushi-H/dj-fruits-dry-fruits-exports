@@ -1,0 +1,1255 @@
+---
+import fallbackRates from '../../public/data/rates-fallback.json';
+import ourRates from '../../public/data/our-rates.json';
+
+interface Props {
+  lang: 'en' | 'mr';
+  dict: any;
+}
+
+const { lang, dict } = Astro.props;
+---
+
+<section class="section-opaque farmers-section" id="farmers" aria-label="Farmers procurement and mandi rates">
+  <div class="container">
+    <!-- Header -->
+    <div class="section-header">
+      <span class="section-tag">{dict.farmers.tag}</span>
+      <h2 class="section-title">{dict.farmers.title}</h2>
+      <p class="section-subtitle">
+        {lang === 'mr'
+          ? 'स्थानिक बागायतदार आणि व्यापाऱ्यांसाठी पारदर्शक व्यवहार, हमीभाव आणि थेट बँक पेमेंट.'
+          : 'Connecting growers with direct export buyers: verified weighing, competitive market rates, and fair terms.'}
+      </p>
+    </div>
+
+    <!-- 1. How Selling Works (4 Steps) -->
+    <div class="how-works-block">
+      <h3 class="subsection-title">{dict.farmers.how_title}</h3>
+      <div class="steps-grid" id="steps-container">
+        {dict.farmers.steps.map((step: any, index: number) => (
+          <div class="step-card" data-step={index + 1}>
+            <div class="step-header">
+              <span class="step-num">{step.num}</span>
+              <div class="step-line" aria-hidden="true"></div>
+            </div>
+            <h4 class="step-title">{step.title}</h4>
+            <p class="step-desc">{step.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- 2. Today's Mandi Rates Board -->
+    <div class="rates-board-block" id="mandi-rates">
+      <div class="rates-board-header">
+        <div>
+          <span class="section-tag">{dict.farmers.rates.tag}</span>
+          <h3 class="rates-title">{dict.farmers.rates.title}</h3>
+          <p class="rates-sub">{dict.farmers.rates.subtitle}</p>
+        </div>
+
+        <!-- Unit Toggle (Quintal vs Kg) -->
+        <div class="unit-toggle-wrapper">
+          <label class="unit-toggle" for="unit-rate-toggle">
+            <span id="label-quintal" class="unit-label active">{dict.farmers.rates.unit_toggle_quintal}</span>
+            <input type="checkbox" id="unit-rate-toggle" aria-label="Toggle between quintal and kilogram rates" />
+            <span class="toggle-slider"></span>
+            <span id="label-kg" class="unit-label">{dict.farmers.rates.unit_toggle_kg}</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Filters Strip -->
+      <div class="rates-filters">
+        <div class="filter-chips" id="commodity-filters">
+          <button type="button" class="chip active" data-crop="all">{dict.farmers.rates.filter_all}</button>
+          <button type="button" class="chip" data-crop="Grapes">{lang === 'mr' ? 'द्राक्षे' : 'Grapes'}</button>
+          <button type="button" class="chip" data-crop="Pomegranate">{lang === 'mr' ? 'डाळिंब' : 'Pomegranate'}</button>
+          <button type="button" class="chip" data-crop="Raisins">{lang === 'mr' ? 'बेदाणा (किशमिश)' : 'Raisins (Kishmish)'}</button>
+        </div>
+
+        <div class="market-select-wrap">
+          <label for="market-filter-select" class="market-label">{dict.farmers.rates.market_label}</label>
+          <select id="market-filter-select" class="market-select">
+            <option value="all">{lang === 'mr' ? 'सर्व बाजार समित्या' : 'All Mandis'}</option>
+            <option value="Sangli">Sangli (सांगली)</option>
+            <option value="Tasgaon">Tasgaon (तासगाव)</option>
+            <option value="Nashik">Nashik (नाशिक)</option>
+            <option value="Solapur">Solapur (सोलापूर)</option>
+            <option value="Pune">Pune (पुणे)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Mandi Cards Grid -->
+      <div class="rates-grid" id="rates-cards-grid">
+        {fallbackRates.records.map((rec) => (
+          <div class="rate-card" data-crop={rec.commodity} data-market={rec.market}>
+            <div class="rate-card-top">
+              <span class="rate-market-badge">📍 {rec.market} Mandi</span>
+              <span class="rate-commodity-name">{lang === 'mr' ? rec.commodity_mr : rec.commodity}</span>
+            </div>
+
+            <div class="rate-variety-name">{rec.variety}</div>
+
+            <div class="rate-prices-row">
+              <div class="price-col">
+                <span class="price-label">{dict.farmers.rates.min_price}</span>
+                <span class="price-val min tabular-nums" data-base={rec.min_price}>₹{rec.min_price.toLocaleString('en-IN')}</span>
+              </div>
+              <div class="price-col price-col--modal">
+                <span class="price-label">{dict.farmers.rates.modal_price}</span>
+                <span class="price-val modal tabular-nums" data-base={rec.modal_price}>₹{rec.modal_price.toLocaleString('en-IN')}</span>
+              </div>
+              <div class="price-col">
+                <span class="price-label">{dict.farmers.rates.max_price}</span>
+                <span class="price-val max tabular-nums" data-base={rec.max_price}>₹{rec.max_price.toLocaleString('en-IN')}</span>
+              </div>
+            </div>
+
+            <div class="rate-card-bottom">
+              <span class="rate-unit-note">Per Quintal</span>
+              <span class="rate-arrival">📦 {rec.arrival_tonnes} MT {lang === 'mr' ? 'आवक' : 'Arrivals'}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Attribution & Last Updated Date -->
+      <div class="rates-meta-footer">
+        <p class="source-text">{dict.farmers.rates.source_notice}</p>
+        <p class="date-text">{dict.farmers.rates.last_updated}: <time datetime="2026-10-10">10 Oct 2026</time></p>
+      </div>
+
+      <!-- Separate Block: Our Reference Rates for Dry Fruits -->
+      <div class="our-rates-subblock">
+        <h4 class="our-rates-heading">🌿 {dict.farmers.rates.our_reference_title}</h4>
+        <p class="our-rates-sub">{dict.farmers.rates.our_reference_note}</p>
+
+        <div class="our-rates-grid">
+          {ourRates.items.map((item) => (
+            <div class="our-rate-card">
+              <div class="our-rate-crop">{lang === 'mr' ? item.commodity_mr : item.commodity}</div>
+              <div class="our-rate-grade">{item.grade}</div>
+              <div class="our-rate-val tabular-nums">
+                ₹{item.buying_rate_kg} <span class="rate-per-kg">/ kg</span>
+              </div>
+              <div class="our-rate-point">{dict.farmers.rates.delivery_label} {item.delivery_point}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Signature Widget: The Weighing Slip (Pavti) -->
+    <div class="weighing-slip-section" id="weighing-slip">
+      <div class="slip-intro">
+        <span class="section-tag">{dict.farmers.slip.badge}</span>
+        <h3 class="slip-main-title">{dict.farmers.slip.title}</h3>
+      </div>
+
+      <div class="slip-layout">
+        <!-- Interactive Inputs Form -->
+        <div class="slip-controls-panel">
+          <!-- Role Toggle -->
+          <div class="role-selector" role="radiogroup" aria-label="Role">
+            <button type="button" class="role-btn active" id="btn-role-farmer" data-role="Farmer">
+              👨‍🌾 {dict.farmers.slip.role_farmer}
+            </button>
+            <button type="button" class="role-btn" id="btn-role-dealer" data-role="Dealer">
+              🤝 {dict.farmers.slip.role_dealer}
+            </button>
+          </div>
+
+          <!-- Crop Selection -->
+          <div class="form-group">
+            <label for="slip-crop-select" class="form-label">{dict.farmers.slip.crop_label}</label>
+            <select id="slip-crop-select" class="form-control">
+              <option value="Grapes" data-rate="6800">{lang === 'mr' ? 'ताजी द्राक्षे (Grapes)' : 'Fresh Green Grapes'}</option>
+              <option value="Pomegranate" data-rate="12800">{lang === 'mr' ? 'भगवा डाळिंब (Pomegranate)' : 'Bhagwa Pomegranate'}</option>
+              <option value="Raisins" data-rate="21500">{lang === 'mr' ? 'सांगली बेदाणा (Raisins)' : 'Sangli Golden Raisins'}</option>
+              <option value="Almonds" data-rate="42000">{lang === 'mr' ? 'कॅलिफोर्निया बदाम (Almonds)' : 'California Almonds'}</option>
+              <option value="Dates" data-rate="54000">{lang === 'mr' ? 'शाही मेदजूल खजूर (Dates)' : 'Royal Medjool Dates'}</option>
+              <option value="Cashews" data-rate="76000">{lang === 'mr' ? 'काजू गर (Cashews)' : 'Raw Cashew Kernels'}</option>
+            </select>
+          </div>
+
+          <!-- Quantity Slider & Numeric Input -->
+          <div class="form-group">
+            <div class="qty-label-row">
+              <label for="slip-qty-input" class="form-label">{dict.farmers.slip.qty_label}</label>
+              <span class="qty-hint">{dict.farmers.slip.qty_hint}</span>
+            </div>
+            <div class="qty-inputs-row">
+              <input
+                type="range"
+                id="slip-qty-slider"
+                min="5"
+                max="500"
+                step="5"
+                value="50"
+                class="qty-slider"
+                aria-label="Quantity in quintals slider"
+              />
+              <div class="qty-number-wrap">
+                <input
+                  type="number"
+                  id="slip-qty-input"
+                  min="1"
+                  max="5000"
+                  value="50"
+                  inputmode="numeric"
+                  class="form-control qty-number-input tabular-nums"
+                  aria-label="Quantity in quintals numeric input"
+                />
+                <span class="qty-unit-addon">Qtl</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Location Details -->
+          <div class="form-row-grid">
+            <div class="form-group">
+              <label for="slip-village" class="form-label">{dict.farmers.slip.village_label}</label>
+              <input type="text" id="slip-village" class="form-control" placeholder={lang === 'mr' ? 'उदा. मनेराजुरी / कवठे' : 'e.g. Manerajuri'} value="Manerajuri" />
+            </div>
+            <div class="form-group">
+              <label for="slip-taluka" class="form-label">{dict.farmers.slip.taluka_label}</label>
+              <input type="text" id="slip-taluka" class="form-control" placeholder={lang === 'mr' ? 'उदा. तासगाव' : 'e.g. Tasgaon'} value="Tasgaon" />
+            </div>
+            <div class="form-group">
+              <label for="slip-district" class="form-label">{dict.farmers.slip.district_label}</label>
+              <select id="slip-district" class="form-control">
+                <option value="Sangli">Sangli (सांगली)</option>
+                <option value="Solapur">Solapur (सोलापूर)</option>
+                <option value="Nashik">Nashik (नाशिक)</option>
+                <option value="Pune">Pune (पुणे)</option>
+                <option value="Satara">Satara (सातारा)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Phone Number -->
+          <div class="form-group">
+            <label for="slip-phone" class="form-label">{dict.farmers.slip.phone_label}</label>
+            <input
+              type="tel"
+              id="slip-phone"
+              class="form-control tabular-nums"
+              placeholder="+91 98765 43210"
+              inputmode="numeric"
+              required
+            />
+          </div>
+
+          <!-- Dealer Specific Fields (Hidden by default for farmers) -->
+          <div class="dealer-fields" id="dealer-extra-fields" style="display: none;">
+            <div class="form-row-grid">
+              <div class="form-group">
+                <label for="slip-packing" class="form-label">{dict.farmers.slip.lot_size_label}</label>
+                <input type="text" id="slip-packing" class="form-control" placeholder="10kg plastic crates / CFB" />
+              </div>
+              <div class="form-group">
+                <label for="slip-avail" class="form-label">{dict.farmers.slip.availability_label}</label>
+                <input type="date" id="slip-avail" class="form-control" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Realtime Paper Weighing Slip Widget -->
+        <div class="slip-paper-container">
+          <div class="paper-slip" id="live-paper-slip">
+            <!-- Rubber Stamp Overlay -->
+            <div class="rubber-stamp" id="rubber-stamp-el">
+              {dict.farmers.slip.stamp_text}
+            </div>
+
+            <!-- Slip Header -->
+            <div class="slip-bill-head">
+              <div class="slip-brand">
+                <span class="slip-brand-logo">DJ EXPORTS</span>
+                <span class="slip-brand-loc">PACKHOUSE GAT NO. 479 • MANERAJURI</span>
+              </div>
+              <div class="slip-memo-id">
+                <span class="memo-label">{dict.farmers.slip.receipt_id}</span>
+                <strong class="memo-val tabular-nums" id="slip-memo-no">DJE-26-849</strong>
+              </div>
+            </div>
+
+            <div class="slip-rule-double"></div>
+
+            <!-- Slip Meta Grid -->
+            <div class="slip-meta-grid">
+              <div class="meta-item">
+                <span class="meta-lbl">{dict.farmers.slip.receipt_date}</span>
+                <span class="meta-val tabular-nums" id="slip-display-date">11 Oct 2026</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-lbl">{dict.farmers.slip.receipt_seller}</span>
+                <span class="meta-val" id="slip-display-role">Farmer (बागायतदार)</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-lbl">{dict.farmers.slip.receipt_location}</span>
+                <span class="meta-val" id="slip-display-location">Manerajuri, Tasgaon, Sangli</span>
+              </div>
+            </div>
+
+            <div class="slip-rule"></div>
+
+            <!-- Slip Content Rows -->
+            <div class="slip-lines-table">
+              <div class="slip-row">
+                <span class="row-label">Commodity / Crop:</span>
+                <strong class="row-val" id="slip-display-crop">Fresh Green Grapes (द्राक्षे)</strong>
+              </div>
+              <div class="slip-row">
+                <span class="row-label">{dict.farmers.slip.receipt_qty}</span>
+                <strong class="row-val tabular-nums" id="slip-display-qty">50.00 Quintals (5,000 kg)</strong>
+              </div>
+              <div class="slip-row">
+                <span class="row-label">{dict.farmers.slip.receipt_benchmark}</span>
+                <strong class="row-val tabular-nums" id="slip-display-modal">₹6,800 / Qtl</strong>
+              </div>
+            </div>
+
+            <div class="slip-rule-double"></div>
+
+            <!-- Grand Estimated Value -->
+            <div class="slip-total-box">
+              <div class="total-label">{dict.farmers.slip.receipt_est_value}</div>
+              <div class="total-val tabular-nums text-amber" id="slip-display-total">₹3,40,000</div>
+            </div>
+
+            <!-- Disclaimer -->
+            <p class="slip-disclaimer">
+              {dict.farmers.slip.receipt_disclaimer}
+            </p>
+
+            <!-- Actions inside Slip -->
+            <div class="slip-action-wrap">
+              <button type="button" class="btn btn-whatsapp slip-submit-btn" id="slip-whatsapp-trigger">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 6.46 17.5 2 12.04 2M12.05 3.67C16.58 3.67 20.28 7.37 20.28 11.92C20.28 16.46 16.58 20.17 12.04 20.17C10.59 20.17 9.17 19.79 7.92 19.05L7.62 18.87L4.5 19.69L5.33 16.65L5.13 16.33C4.33 15.05 3.8 13.51 3.8 11.91C3.81 7.37 7.51 3.67 12.05 3.67Z"/>
+                </svg>
+                <span>{dict.farmers.slip.send_whatsapp_btn}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. What We Promise (4 Concrete Promises) -->
+    <div class="promises-block">
+      <h3 class="subsection-title">{dict.farmers.promises.title}</h3>
+      <div class="promises-grid">
+        {dict.farmers.promises.items.map((promise: any) => (
+          <div class="promise-card">
+            <div class="promise-icon">✓</div>
+            <h4 class="promise-title">{promise.heading}</h4>
+            <p class="promise-text">{promise.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .farmers-section {
+    background-color: #F4F8F2;
+  }
+
+  .section-header {
+    margin-bottom: 3.5rem;
+  }
+
+  .subsection-title {
+    font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+    margin-bottom: 2rem;
+    color: var(--canopy);
+  }
+
+  /* 1. Steps Grid */
+  .how-works-block {
+    margin-bottom: 5.5rem;
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    position: relative;
+  }
+
+  .step-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border-rule);
+    border-radius: var(--radius);
+    padding: 1.75rem 1.5rem;
+    box-shadow: 2px 2px 0px rgba(15, 59, 44, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .step-card:hover {
+    box-shadow: var(--shadow-hard-subtle);
+    transform: translateY(-2px);
+  }
+
+  .step-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .step-num {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--leaf);
+    background: rgba(46, 125, 79, 0.1);
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius);
+  }
+
+  .step-line {
+    flex: 1;
+    height: 2px;
+    background: #E0EADE;
+  }
+
+  .step-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+    color: var(--canopy);
+  }
+
+  .step-desc {
+    font-size: 0.9375rem;
+    color: var(--ink-dim);
+    line-height: 1.6;
+  }
+
+  /* 2. Rates Board */
+  .rates-board-block {
+    background: #FFFFFF;
+    border: 1px solid var(--border-rule);
+    border-radius: var(--radius);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-hard);
+    margin-bottom: 5.5rem;
+  }
+
+  .rates-board-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .rates-title {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    color: var(--canopy);
+  }
+
+  .rates-sub {
+    font-size: 1rem;
+    color: var(--ink-dim);
+    margin-top: 0.35rem;
+  }
+
+  /* Unit Toggle */
+  .unit-toggle-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  .unit-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--mist);
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid var(--border-rule);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .unit-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--ink-dim);
+  }
+
+  .unit-label.active {
+    color: var(--canopy);
+    font-weight: 700;
+  }
+
+  .unit-toggle input {
+    display: none;
+  }
+
+  .toggle-slider {
+    width: 38px;
+    height: 22px;
+    background-color: var(--leaf);
+    border-radius: 999px;
+    position: relative;
+    transition: background-color 0.2s ease;
+  }
+
+  .toggle-slider::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-color: #FFFFFF;
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .unit-toggle input:checked + .toggle-slider::after {
+    transform: translateX(16px);
+  }
+
+  /* Filters */
+  .rates-filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-rule);
+  }
+
+  .filter-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .chip {
+    padding: 0.45rem 0.9rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    background: var(--mist);
+    border: 1px solid var(--border-rule);
+    border-radius: 999px;
+    color: var(--canopy);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .chip.active, .chip:hover {
+    background: var(--leaf);
+    color: #FFFFFF;
+    border-color: var(--leaf);
+  }
+
+  .market-select-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .market-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--canopy);
+  }
+
+  .market-select {
+    padding: 0.45rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border: 1px solid var(--border-rule);
+    border-radius: var(--radius);
+    background: #FFFFFF;
+    color: var(--ink);
+  }
+
+  /* Rates Cards */
+  .rates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+  }
+
+  .rate-card {
+    background: var(--mist);
+    border: 1px solid var(--border-rule);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.25rem 1rem;
+    box-shadow: 2px 2px 0px rgba(15, 59, 44, 0.08);
+  }
+
+  .rate-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .rate-market-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: #FFFFFF;
+    padding: 0.2rem 0.5rem;
+    border-radius: 2px;
+    border: 1px solid var(--border-rule);
+    color: var(--canopy);
+  }
+
+  .rate-commodity-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--canopy);
+  }
+
+  .rate-variety-name {
+    font-size: 0.8125rem;
+    color: var(--ink-dim);
+    margin-bottom: 1rem;
+  }
+
+  .rate-prices-row {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr 1fr;
+    gap: 0.5rem;
+    text-align: center;
+    background: #FFFFFF;
+    border: 1px solid var(--border-rule);
+    border-radius: var(--radius);
+    padding: 0.75rem 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .price-col--modal {
+    background: #FDF9F0;
+    border-radius: 2px;
+    border-left: 1px solid #EAD8B5;
+    border-right: 1px solid #EAD8B5;
+  }
+
+  .price-label {
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--ink-dim);
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+  }
+
+  .price-val {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .price-val.modal {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--amber);
+  }
+
+  .rate-card-bottom {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--ink-dim);
+    font-weight: 500;
+  }
+
+  .rates-meta-footer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: 0.8125rem;
+    color: var(--ink-dim);
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-rule);
+    margin-bottom: 2.5rem;
+  }
+
+  /* Our Rates Block */
+  .our-rates-subblock {
+    background: #F7FAF6;
+    border: 1px dashed var(--leaf);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+  }
+
+  .our-rates-heading {
+    font-size: 1.15rem;
+    color: var(--canopy);
+    margin-bottom: 0.35rem;
+  }
+
+  .our-rates-sub {
+    font-size: 0.875rem;
+    color: var(--ink-dim);
+    margin-bottom: 1.25rem;
+  }
+
+  .our-rates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+
+  .our-rate-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border-rule);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+
+  .our-rate-crop {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--canopy);
+  }
+
+  .our-rate-grade {
+    font-size: 0.8125rem;
+    color: var(--ink-dim);
+    margin-bottom: 0.5rem;
+  }
+
+  .our-rate-val {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--amber);
+  }
+
+  .rate-per-kg {
+    font-size: 0.875rem;
+    color: var(--ink-dim);
+  }
+
+  .our-rate-point {
+    font-size: 0.75rem;
+    color: var(--leaf);
+    margin-top: 0.4rem;
+    font-weight: 600;
+  }
+
+  /* 3. Weighing Slip Layout */
+  .weighing-slip-section {
+    margin-bottom: 5.5rem;
+  }
+
+  .slip-intro {
+    margin-bottom: 2rem;
+  }
+
+  .slip-main-title {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    color: var(--canopy);
+  }
+
+  .slip-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 992px) {
+    .slip-layout {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+  }
+
+  .slip-controls-panel {
+    background: #FFFFFF;
+    border: 1px solid var(--border-rule);
+    border-radius: var(--radius);
+    padding: 2rem;
+    box-shadow: 2px 2px 0px rgba(15, 59, 44, 0.08);
+  }
+
+  .role-selector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .role-btn {
+    min-height: 48px;
+    padding: 0.6rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    background: var(--mist);
+    border: 1px solid var(--border-rule);
+    border-radius: var(--radius);
+    color: var(--canopy);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .role-btn.active {
+    background: var(--canopy);
+    color: #FFFFFF;
+    border-color: var(--canopy);
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+  }
+
+  .qty-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .qty-hint {
+    font-size: 0.8125rem;
+    color: var(--leaf);
+    font-weight: 600;
+  }
+
+  .qty-inputs-row {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+  }
+
+  .qty-slider {
+    flex: 1;
+    height: 6px;
+    accent-color: var(--leaf);
+    cursor: pointer;
+  }
+
+  .qty-number-wrap {
+    position: relative;
+    width: 120px;
+  }
+
+  .qty-number-input {
+    padding-right: 2.5rem;
+    font-weight: 700;
+    font-size: 1.125rem;
+  }
+
+  .qty-unit-addon {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.875rem;
+    color: var(--ink-dim);
+    font-weight: 600;
+    pointer-events: none;
+  }
+
+  .form-row-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 0.875rem;
+  }
+
+  /* Paper Slip Styling */
+  .slip-paper-container {
+    position: sticky;
+    top: 100px;
+  }
+
+  .paper-slip {
+    padding: 2.25rem 2rem;
+  }
+
+  .slip-bill-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.25rem;
+  }
+
+  .slip-brand-logo {
+    display: block;
+    font-family: var(--font-display-en);
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--canopy);
+    letter-spacing: 0.05em;
+  }
+
+  .slip-brand-loc {
+    display: block;
+    font-size: 0.6875rem;
+    color: var(--ink-dim);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+
+  .memo-label {
+    display: block;
+    font-size: 0.6875rem;
+    color: var(--ink-dim);
+    font-weight: 700;
+  }
+
+  .memo-val {
+    font-size: 0.9375rem;
+    color: var(--canopy);
+    letter-spacing: 0.05em;
+  }
+
+  .slip-rule {
+    height: 1px;
+    background: #BAC9B7;
+    margin: 1rem 0;
+  }
+
+  .slip-rule-double {
+    height: 3px;
+    border-top: 1px solid #BAC9B7;
+    border-bottom: 1px solid #BAC9B7;
+    margin: 1rem 0;
+  }
+
+  .slip-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .meta-lbl {
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    color: var(--ink-dim);
+  }
+
+  .meta-val {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .slip-lines-table {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .slip-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9375rem;
+  }
+
+  .row-label {
+    color: var(--ink-dim);
+    font-weight: 500;
+  }
+
+  .row-val {
+    color: var(--ink);
+  }
+
+  .slip-total-box {
+    background: #FDF9F0;
+    border: 1px solid #EAD8B5;
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .total-label {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--canopy);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .total-val {
+    font-size: 1.85rem;
+    font-weight: 900;
+  }
+
+  .slip-disclaimer {
+    font-size: 0.75rem;
+    color: var(--ink-dim);
+    line-height: 1.45;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+
+  .slip-action-wrap {
+    width: 100%;
+  }
+
+  .slip-submit-btn {
+    width: 100%;
+    font-size: 1.0625rem;
+    padding: 1rem;
+  }
+
+  /* 4. Promises */
+  .promises-block {
+    margin-top: 2rem;
+  }
+
+  .promises-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .promise-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border-rule);
+    border-radius: var(--radius);
+    padding: 1.75rem 1.5rem;
+    box-shadow: 2px 2px 0px rgba(15, 59, 44, 0.08);
+  }
+
+  .promise-icon {
+    width: 32px;
+    height: 32px;
+    background: rgba(46, 125, 79, 0.12);
+    color: var(--leaf);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    margin-bottom: 1rem;
+  }
+
+  .promise-title {
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+    color: var(--canopy);
+  }
+
+  .promise-text {
+    font-size: 0.9375rem;
+    color: var(--ink-dim);
+    line-height: 1.55;
+  }
+
+  @media (max-width: 640px) {
+    .rates-board-block {
+      padding: 1.5rem 1rem;
+    }
+    .paper-slip {
+      padding: 1.5rem 1rem;
+    }
+    .total-val {
+      font-size: 1.4rem;
+    }
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1. Mandi Rates Unit Toggle (Quintal vs Kg)
+    const unitToggle = document.getElementById('unit-rate-toggle');
+    const labelQuintal = document.getElementById('label-quintal');
+    const labelKg = document.getElementById('label-kg');
+    const rateUnitNotes = document.querySelectorAll('.rate-unit-note');
+    const priceVals = document.querySelectorAll('.price-val');
+
+    if (unitToggle) {
+      unitToggle.addEventListener('change', () => {
+        const isKg = unitToggle.checked;
+        labelQuintal.classList.toggle('active', !isKg);
+        labelKg.classList.toggle('active', isKg);
+
+        rateUnitNotes.forEach(el => {
+          el.textContent = isKg ? 'Per Kilogram' : 'Per Quintal';
+        });
+
+        priceVals.forEach(el => {
+          const baseQtl = parseFloat(el.getAttribute('data-base') || '0');
+          if (isKg) {
+            const kgVal = (baseQtl / 100).toFixed(1);
+            el.textContent = `₹${kgVal}`;
+          } else {
+            el.textContent = `₹${baseQtl.toLocaleString('en-IN')}`;
+          }
+        });
+      });
+    }
+
+    // 2. Mandi Rates Filters (Crop chips & Market dropdown)
+    const cropChips = document.querySelectorAll('#commodity-filters .chip');
+    const marketSelect = document.getElementById('market-filter-select');
+    const rateCards = document.querySelectorAll('#rates-cards-grid .rate-card');
+
+    function filterCards() {
+      const activeChip = document.querySelector('#commodity-filters .chip.active');
+      const selectedCrop = activeChip ? activeChip.getAttribute('data-crop') : 'all';
+      const selectedMarket = marketSelect ? marketSelect.value : 'all';
+
+      rateCards.forEach(card => {
+        const cardCrop = card.getAttribute('data-crop');
+        const cardMarket = card.getAttribute('data-market');
+
+        const cropMatch = selectedCrop === 'all' || cardCrop === selectedCrop;
+        const marketMatch = selectedMarket === 'all' || cardMarket === selectedMarket;
+
+        if (cropMatch && marketMatch) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    cropChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        cropChips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        filterCards();
+      });
+    });
+
+    if (marketSelect) {
+      marketSelect.addEventListener('change', filterCards);
+    }
+
+    // 3. Interactive Weighing Slip (Pavti)
+    const roleFarmer = document.getElementById('btn-role-farmer');
+    const roleDealer = document.getElementById('btn-role-dealer');
+    const dealerFields = document.getElementById('dealer-extra-fields');
+
+    const cropSelect = document.getElementById('slip-crop-select');
+    const qtySlider = document.getElementById('slip-qty-slider');
+    const qtyInput = document.getElementById('slip-qty-input');
+    const villageInput = document.getElementById('slip-village');
+    const talukaInput = document.getElementById('slip-taluka');
+    const districtSelect = document.getElementById('slip-district');
+    const phoneInput = document.getElementById('slip-phone');
+
+    // Live display elements on paper slip
+    const displayRole = document.getElementById('slip-display-role');
+    const displayLocation = document.getElementById('slip-display-location');
+    const displayCrop = document.getElementById('slip-display-crop');
+    const displayQty = document.getElementById('slip-display-qty');
+    const displayModal = document.getElementById('slip-display-modal');
+    const displayTotal = document.getElementById('slip-display-total');
+    const stampEl = document.getElementById('rubber-stamp-el');
+    const whatsappTrigger = document.getElementById('slip-whatsapp-trigger');
+
+    let currentRole = 'Farmer';
+
+    function setRole(role) {
+      currentRole = role;
+      if (role === 'Farmer') {
+        roleFarmer.classList.add('active');
+        roleDealer.classList.remove('active');
+        dealerFields.style.display = 'none';
+        displayRole.textContent = 'Farmer (बागायतदार)';
+      } else {
+        roleDealer.classList.add('active');
+        roleFarmer.classList.remove('active');
+        dealerFields.style.display = 'block';
+        displayRole.textContent = 'Dealer / Trader (व्यापारी)';
+      }
+    }
+
+    if (roleFarmer && roleDealer) {
+      roleFarmer.addEventListener('click', () => setRole('Farmer'));
+      roleDealer.addEventListener('click', () => setRole('Dealer'));
+    }
+
+    function updateSlipCalculations() {
+      const qtl = parseFloat(qtyInput.value) || 0;
+      const selectedOption = cropSelect.options[cropSelect.selectedIndex];
+      const ratePerQtl = parseFloat(selectedOption.getAttribute('data-rate') || '0');
+      const cropText = selectedOption.text;
+
+      const totalVal = Math.round(qtl * ratePerQtl);
+      const kg = Math.round(qtl * 100);
+
+      const village = (villageInput.value || '').trim() || 'Manerajuri';
+      const taluka = (talukaInput.value || '').trim() || 'Tasgaon';
+      const district = districtSelect.value;
+
+      displayCrop.textContent = cropText;
+      displayQty.textContent = `${qtl.toLocaleString('en-IN')} Quintals (${kg.toLocaleString('en-IN')} kg)`;
+      displayModal.textContent = `₹${ratePerQtl.toLocaleString('en-IN')} / Qtl`;
+      displayTotal.textContent = `₹${totalVal.toLocaleString('en-IN')}`;
+      displayLocation.textContent = `${village}, ${taluka}, ${district}`;
+    }
+
+    if (qtySlider && qtyInput) {
+      qtySlider.addEventListener('input', () => {
+        qtyInput.value = qtySlider.value;
+        updateSlipCalculations();
+      });
+
+      qtyInput.addEventListener('input', () => {
+        qtySlider.value = qtyInput.value;
+        updateSlipCalculations();
+      });
+    }
+
+    if (cropSelect) cropSelect.addEventListener('change', updateSlipCalculations);
+    if (villageInput) villageInput.addEventListener('input', updateSlipCalculations);
+    if (talukaInput) talukaInput.addEventListener('input', updateSlipCalculations);
+    if (districtSelect) districtSelect.addEventListener('change', updateSlipCalculations);
+
+    // Initial calculation
+    updateSlipCalculations();
+
+    // 4. WhatsApp Hand-off with Stamp Animation
+    if (whatsappTrigger) {
+      whatsappTrigger.addEventListener('click', () => {
+        const phone = (phoneInput.value || '').trim();
+        if (!phone) {
+          phoneInput.focus();
+          phoneInput.style.borderColor = '#C0392B';
+          return;
+        }
+
+        // Trigger rubber stamp visual punch
+        if (stampEl) {
+          stampEl.classList.add('stamped');
+        }
+
+        const qtl = qtyInput.value;
+        const crop = cropSelect.options[cropSelect.selectedIndex].text;
+        const total = displayTotal.textContent;
+        const loc = displayLocation.textContent;
+        const memo = document.getElementById('slip-memo-no').textContent;
+
+        const message = `*DJ FRUITS PURCHASE MEMO [${memo}]*\n` +
+          `• Role: ${currentRole}\n` +
+          `• Crop: ${crop}\n` +
+          `• Estimated Quantity: ${qtl} Quintals\n` +
+          `• Location: ${loc}\n` +
+          `• Phone: ${phone}\n` +
+          `• Benchmark Est: ${total}\n\n` +
+          `Please confirm inspection and collection schedule.`;
+
+        const waUrl = `https://wa.me/919130659595?text=${encodeURIComponent(message)}`;
+
+        setTimeout(() => {
+          window.open(waUrl, '_blank');
+        }, 350);
+      });
+    }
+  });
+</script>

@@ -1,0 +1,84 @@
+{
+  "updated_date": "2026-10-10",
+  "source": "Agmarknet, Government of India. Wholesale mandi prices, indicative only.",
+  "state": "Maharashtra",
+  "records": [
+    {
+      "market": "Sangli",
+      "commodity": "Grapes",
+      "commodity_mr": "द्राक्षे",
+      "variety": "Thompson Seedless",
+      "min_price": 5200,
+      "max_price": 7800,
+      "modal_price": 6800,
+      "unit": "Quintal",
+      "arrival_tonnes": 42.5
+    },
+    {
+      "market": "Nashik",
+      "commodity": "Grapes",
+      "commodity_mr": "द्राक्षे",
+      "variety": "Sharad Seedless / Jumbo",
+      "min_price": 5800,
+      "max_price": 8400,
+      "modal_price": 7200,
+      "unit": "Quintal",
+      "arrival_tonnes": 55.0
+    },
+    {
+      "market": "Pune",
+      "commodity": "Grapes",
+      "commodity_mr": "द्राक्षे",
+      "variety": "Local / Table Grade",
+      "min_price": 4800,
+      "max_price": 7200,
+      "modal_price": 6400,
+      "unit": "Quintal",
+      "arrival_tonnes": 30.0
+    },
+    {
+      "market": "Solapur",
+      "commodity": "Pomegranate",
+      "commodity_mr": "डाळिंब",
+      "variety": "Bhagwa Export Grade",
+      "min_price": 9500,
+      "max_price": 14500,
+      "modal_price": 12800,
+      "unit": "Quintal",
+      "arrival_tonnes": 68.0
+    },
+    {
+      "market": "Sangli",
+      "commodity": "Pomegranate",
+      "commodity_mr": "डाळिंब",
+      "variety": "Bhagwa / Arakta",
+      "min_price": 8800,
+      "max_price": 13800,
+      "modal_price": 11900,
+      "unit": "Quintal",
+      "arrival_tonnes": 34.0
+    },
+    {
+      "market": "Sangli",
+      "commodity": "Raisins",
+      "commodity_mr": "बेदाणा (किशमिश)",
+      "variety": "Green / Golden Bold",
+      "min_price": 16000,
+      "max_price": 24500,
+      "modal_price": 21500,
+      "unit": "Quintal",
+      "arrival_tonnes": 85.0
+    },
+    {
+      "market": "Tasgaon",
+      "commodity": "Raisins",
+      "commodity_mr": "बेदाणा (किशमिश)",
+      "variety": "Golden Yellow Grade-A",
+      "min_price": 17500,
+      "max_price": 26000,
+      "modal_price": 22800,
+      "unit": "Quintal",
+      "arrival_tonnes": 92.0
+    }
+  ]
+}

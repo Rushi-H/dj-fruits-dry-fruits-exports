@@ -1,0 +1,420 @@
+---
+interface Props {
+  lang: 'en' | 'mr';
+  dict: any;
+}
+
+const { lang, dict } = Astro.props;
+---
+
+<section class="section-dark origin-section" id="origin" aria-label="Origin and sourcing districts">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag section-tag--dark">{dict.origin.tag}</span>
+      <h2 class="section-title heading-light">{dict.origin.title}</h2>
+      <p class="section-subtitle text-dim">{dict.origin.subtitle}</p>
+    </div>
+
+    <!-- Overview Banner with Landscape -->
+    <div class="origin-banner">
+      <div class="origin-banner-media">
+        <img
+          src="/images/origin-plate.jpg"
+          alt="Krishna river valley grape orchards in Sangli Maharashtra"
+          class="origin-landscape-img"
+          loading="lazy"
+          width="1200"
+          height="675"
+        />
+        <div class="origin-banner-overlay">
+          <div class="banner-badge">📍 {lang === 'mr' ? 'कृष्णा नदी खोरे व दख्खनचे पठार' : 'Krishna River Valley & Deccan Plateau'}</div>
+          <h3 class="banner-headline">
+            {lang === 'mr'
+              ? 'सांगली आणि सोलापूर: देशातील सर्वोत्तम द्राक्षे आणि डाळिंबाची जन्मभूमी.'
+              : 'Sangli & Solapur: The heartland of India’s premier export-grade grapes & pomegranate.'}
+          </h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sourcing Footprint Map & District Selector -->
+    <div class="origin-interactive-layout">
+      <!-- Interactive Region Map SVG -->
+      <div class="map-card-wrap">
+        <div class="map-card-header">
+          <h4 class="map-card-title">🗺️ {dict.origin.districts_label}</h4>
+          <span class="map-card-hint">{dict.origin.map_hint}</span>
+        </div>
+
+        <div class="svg-map-container" role="region" aria-label="Maharashtra Sourcing Districts Map">
+          <svg viewBox="0 0 700 500" class="maharashtra-svg-map" aria-hidden="true">
+            <!-- Maharashtra Outline Base -->
+            <path
+              d="M 120 180 L 170 120 L 260 90 L 380 110 L 520 80 L 620 120 L 660 170 L 640 250 L 580 320 L 480 390 L 360 450 L 220 460 L 140 430 L 110 350 L 100 270 Z"
+              fill="#0A241B"
+              stroke="#2E7D4F"
+              stroke-width="2"
+              class="state-boundary"
+            />
+
+            <!-- River Line (Krishna & Bhima) -->
+            <path
+              d="M 160 380 Q 280 400 420 370 Q 560 340 620 310"
+              fill="none"
+              stroke="#1B4F72"
+              stroke-width="3"
+              stroke-dasharray="6,4"
+              opacity="0.7"
+            />
+            <text x="310" y="385" fill="#5DADE2" font-size="11" font-weight="600">Krishna River Basin</text>
+
+            <!-- District Hotspots (Min 44px hit targets) -->
+            <!-- 1. Sangli (Primary Hub) -->
+            <g class="district-node active" data-id="sangli" tabindex="0" role="button" aria-label="Sangli district details">
+              <circle cx="280" cy="410" r="34" class="node-pulse" />
+              <circle cx="280" cy="410" r="22" class="node-core primary-hub" />
+              <text x="280" y="414" class="node-label" text-anchor="middle">SANGLI</text>
+              <text x="280" y="450" class="node-sub" text-anchor="middle">Packhouse Hub</text>
+            </g>
+
+            <!-- 2. Solapur -->
+            <g class="district-node" data-id="solapur" tabindex="0" role="button" aria-label="Solapur district details">
+              <circle cx="410" cy="380" r="30" class="node-pulse" />
+              <circle cx="410" cy="380" r="20" class="node-core" />
+              <text x="410" y="384" class="node-label" text-anchor="middle">SOLAPUR</text>
+              <text x="410" y="415" class="node-sub" text-anchor="middle">Pomegranate</text>
+            </g>
+
+            <!-- 3. Nashik -->
+            <g class="district-node" data-id="nashik" tabindex="0" role="button" aria-label="Nashik district details">
+              <circle cx="180" cy="220" r="30" class="node-pulse" />
+              <circle cx="180" cy="220" r="20" class="node-core" />
+              <text x="180" y="224" class="node-label" text-anchor="middle">NASHIK</text>
+              <text x="180" y="255" class="node-sub" text-anchor="middle">Table Grapes</text>
+            </g>
+
+            <!-- 4. Pune -->
+            <g class="district-node" data-id="pune" tabindex="0" role="button" aria-label="Pune district details">
+              <circle cx="230" cy="310" r="30" class="node-pulse" />
+              <circle cx="230" cy="310" r="20" class="node-core" />
+              <text x="230" y="314" class="node-label" text-anchor="middle">PUNE</text>
+              <text x="230" y="345" class="node-sub" text-anchor="middle">Terminal Mandi</text>
+            </g>
+
+            <!-- 5. Satara -->
+            <g class="district-node" data-id="satara" tabindex="0" role="button" aria-label="Satara district details">
+              <circle cx="210" cy="370" r="28" class="node-pulse" />
+              <circle cx="210" cy="370" r="18" class="node-core" />
+              <text x="210" y="374" class="node-label" text-anchor="middle">SATARA</text>
+              <text x="210" y="402" class="node-sub" text-anchor="middle">Phaltan Belt</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- District Details List (Syncs with map) -->
+      <div class="district-details-column">
+        {dict.origin.districts.map((dist: any, idx: number) => (
+          <div
+            class:list={['district-info-card', { active: idx === 0 }]}
+            id={`district-card-${dist.id}`}
+            data-district-id={dist.id}
+          >
+            <div class="dist-card-top">
+              <span class="dist-badge">District</span>
+              <h4 class="dist-name">{dist.name}</h4>
+            </div>
+
+            <div class="dist-row">
+              <span class="dist-lbl">Key Talukas:</span>
+              <span class="dist-val">{dist.talukas}</span>
+            </div>
+
+            <div class="dist-row">
+              <span class="dist-lbl">Key Crops:</span>
+              <span class="dist-val text-sprout"><strong>{dist.crops}</strong></span>
+            </div>
+
+            <div class="dist-row dist-hub-row">
+              <span class="dist-lbl">Facility:</span>
+              <span class="dist-val">{dist.hub}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .origin-section {
+    background-color: #0E291F;
+  }
+
+  .origin-banner {
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border-dark);
+    margin-bottom: 3.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  .origin-banner-media {
+    position: relative;
+    height: 380px;
+    background: #081C15;
+  }
+
+  .origin-landscape-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .origin-banner-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10, 36, 27, 0.95) 0%, rgba(10, 36, 27, 0.4) 60%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2.5rem 2rem;
+  }
+
+  .banner-badge {
+    display: inline-block;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--sprout);
+    margin-bottom: 0.5rem;
+  }
+
+  .banner-headline {
+    font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+    color: #FFFFFF;
+    max-width: 780px;
+    line-height: 1.25;
+  }
+
+  /* Interactive Layout */
+  .origin-interactive-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 992px) {
+    .origin-interactive-layout {
+      grid-template-columns: 1.2fr 1fr;
+      align-items: start;
+    }
+  }
+
+  .map-card-wrap {
+    background: #081F17;
+    border: 1px solid var(--border-dark);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+  }
+
+  .map-card-header {
+    margin-bottom: 1.25rem;
+  }
+
+  .map-card-title {
+    font-size: 1.25rem;
+    color: #FFFFFF;
+    margin-bottom: 0.25rem;
+  }
+
+  .map-card-hint {
+    font-size: 0.8125rem;
+    color: #9AB3A5;
+  }
+
+  .svg-map-container {
+    width: 100%;
+    background: #061610;
+    border-radius: var(--radius);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 1rem;
+  }
+
+  .maharashtra-svg-map {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* SVG Nodes */
+  .district-node {
+    cursor: pointer;
+    outline: none;
+    transition: transform 0.2s ease;
+  }
+
+  .node-pulse {
+    fill: rgba(46, 125, 79, 0.2);
+    transition: r 0.2s ease, fill 0.2s ease;
+  }
+
+  .node-core {
+    fill: var(--leaf);
+    stroke: #FFFFFF;
+    stroke-width: 2;
+    transition: fill 0.2s ease, stroke 0.2s ease;
+  }
+
+  .node-core.primary-hub {
+    fill: var(--amber);
+  }
+
+  .node-label {
+    fill: #FFFFFF;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    pointer-events: none;
+  }
+
+  .node-sub {
+    fill: var(--sprout);
+    font-size: 9.5px;
+    font-weight: 600;
+    pointer-events: none;
+  }
+
+  .district-node:hover .node-core,
+  .district-node.active .node-core {
+    fill: var(--sprout);
+    stroke: #FFFFFF;
+    stroke-width: 3;
+  }
+
+  .district-node:hover .node-pulse,
+  .district-node.active .node-pulse {
+    fill: rgba(143, 191, 106, 0.4);
+    r: 38;
+  }
+
+  /* Column Cards */
+  .district-details-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .district-info-card {
+    background: #0C2B20;
+    border: 1px solid var(--border-dark);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .district-info-card:hover {
+    border-color: var(--leaf);
+    background: #0E3326;
+  }
+
+  .district-info-card.active {
+    border-color: var(--sprout);
+    background: #113D2D;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .dist-card-top {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .dist-badge {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: rgba(143, 191, 106, 0.15);
+    color: var(--sprout);
+    padding: 0.15rem 0.5rem;
+    border-radius: 2px;
+  }
+
+  .dist-name {
+    font-size: 1.35rem;
+    color: #FFFFFF;
+  }
+
+  .dist-row {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-bottom: 0.4rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .dist-lbl {
+    color: #92ABA0;
+  }
+
+  .dist-val {
+    color: #E2ECE5;
+  }
+
+  .text-sprout {
+    color: var(--sprout);
+  }
+
+  .dist-hub-row {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 0.8125rem;
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const mapNodes = document.querySelectorAll('.district-node');
+    const districtCards = document.querySelectorAll('.district-info-card');
+
+    function selectDistrict(id) {
+      mapNodes.forEach(node => {
+        node.classList.toggle('active', node.getAttribute('data-id') === id);
+      });
+
+      districtCards.forEach(card => {
+        const isMatch = card.getAttribute('data-district-id') === id;
+        card.classList.toggle('active', isMatch);
+        if (isMatch) {
+          card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      });
+    }
+
+    mapNodes.forEach(node => {
+      node.addEventListener('click', () => {
+        const id = node.getAttribute('data-id');
+        if (id) selectDistrict(id);
+      });
+      node.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const id = node.getAttribute('data-id');
+          if (id) selectDistrict(id);
+        }
+      });
+    });
+
+    districtCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const id = card.getAttribute('data-district-id');
+        if (id) selectDistrict(id);
+      });
+    });
+  });
+</script>

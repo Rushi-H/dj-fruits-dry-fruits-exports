@@ -1,0 +1,34 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import Farmers from '../../components/Farmers.astro';
+import Products from '../../components/Products.astro';
+import Origin from '../../components/Origin.astro';
+import Contact from '../../components/Contact.astro';
+import mr from '../../i18n/mr.json';
+
+const lang = 'mr';
+const dict = mr;
+---
+
+<Layout
+  lang={lang}
+  title="डीजे फ्रूट्स अँड ड्रायफ्रूट्स एक्सपोर्ट्स | थेट बागायतदारांकडून शेतमाल खरेदी"
+  description="सांगली, सोलापूर, नाशिक व पुणे पट्ट्यातील द्राक्षे, डाळिंब, बेदाणा आणि ड्रायफ्रूट्स थेट खरेदी. पारदर्शक डिजिटल वजन आणि तत्काळ बँक पेमेंट."
+  canonicalPath="/mr/"
+>
+  <!-- Hero with Scroll-Scrubbed Video bg2.mp4 -->
+  <Hero lang={lang} dict={dict} />
+
+  <!-- Farmers Procurement & Mandi Rates & Weighing Slip -->
+  <Farmers lang={lang} dict={dict} />
+
+  <!-- Products We Procure & Sourcing Calendar -->
+  <Products lang={lang} dict={dict} />
+
+  <!-- Origin Footprint & Interactive Maharashtra Map -->
+  <Origin lang={lang} dict={dict} />
+
+  <!-- Direct Contact & Collection Packhouse -->
+  <Contact lang={lang} dict={dict} />
+</Layout>

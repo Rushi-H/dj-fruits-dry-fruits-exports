@@ -1,0 +1,118 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import siteData from '../../content/site.json';
+import en from '../i18n/en.json';
+import mr from '../i18n/mr.json';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  lang?: 'en' | 'mr';
+  canonicalPath?: string;
+}
+
+const {
+  lang = 'en',
+  title = lang === 'mr'
+    ? 'डीजे फ्रूट्स अँड ड्रायफ्रूट्स एक्सपोर्ट्स | थेट बागायतदारांकडून शेतमाल खरेदी'
+    : 'DJ Fruits and Dry Fruits Exports | Direct Farm Procurement & Mandi Rates',
+  description = lang === 'mr'
+    ? 'सांगली, सोलापूर, नाशिक व पुणे पट्ट्यातील द्राक्षे, डाळिंब, बेदाणा आणि ड्रायफ्रूट्स थेट खरेदी. पारदर्शक डिजिटल वजन आणि तत्काळ बँक पेमेंट.'
+    : 'Procuring export-grade grapes, raisins, pomegranate, almonds, and dates directly from farmers across Maharashtra. Calibrated digital weighing & prompt settlement.',
+  canonicalPath = ''
+} = Astro.props;
+
+const dict = lang === 'mr' ? mr : en;
+const baseUrl = 'https://djfruits.com';
+const currentUrl = `${baseUrl}${canonicalPath}`;
+const altEn = `${baseUrl}${canonicalPath.replace(/^\/mr/, '') || '/'}`;
+const altMr = `${baseUrl}/mr${canonicalPath.replace(/^\/mr/, '') || ''}`;
+
+// Structured Data
+const localBusinessJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": siteData.name,
+  "description": description,
+  "url": baseUrl,
+  "telephone": siteData.phone.split(',')[0].trim(),
+  "email": siteData.email,
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Gat No. 479, Near Marathi School No. 01, Shekoba Road, A/P. Manerajuri",
+    "addressLocality": "Tasgaon, Sangli",
+    "addressRegion": "Maharashtra",
+    "postalCode": "416408",
+    "addressCountry": "IN"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "16.9200",
+    "longitude": "74.7200"
+  },
+  "openingHours": "Mo-Sa 08:00-20:00",
+  "priceRange": "₹₹"
+};
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={currentUrl} />
+    <link rel="alternate" hreflang="en" href={altEn} />
+    <link rel="alternate" hreflang="mr" href={altMr} />
+    <link rel="alternate" hreflang="x-default" href={altEn} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={currentUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`${baseUrl}/backgrounds/bg-poster.jpg`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="675" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${baseUrl}/backgrounds/bg-poster.jpg`} />
+
+    <!-- Favicon & Touch -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍇</text></svg>" />
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify(localBusinessJsonLd)} />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">
+      {lang === 'mr' ? 'थेट मुख्य मजकुराकडे जा' : 'Skip to main content'}
+    </a>
+
+    <!-- Header Navigation with Language Toggle -->
+    <Header lang={lang} dict={dict} canonicalPath={canonicalPath} />
+
+    <!-- Main Content -->
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <Footer lang={lang} dict={dict} />
+
+    <!-- Floating WhatsApp Action -->
+    <WhatsAppFloat lang={lang} dict={dict} />
+
+    <!-- GSAP CDN or Client Orchestration -->
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  </body>
+</html>

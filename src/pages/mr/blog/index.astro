@@ -1,0 +1,254 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import mr from '../../../i18n/mr.json';
+
+const lang = 'mr';
+const dict = mr;
+
+// Load all Marathi blog posts
+const postsModules = import.meta.glob('../../../../content/blog/*.mr.md', { eager: true });
+const posts = Object.values(postsModules).map((mod: any) => ({
+  ...mod.frontmatter,
+  url: `/mr/blog/${mod.frontmatter.slug}`
+}));
+
+const featuredPost = posts[0];
+const regularPosts = posts.slice(1);
+---
+
+<Layout
+  lang={lang}
+  title="शेतकरी सल्लागार व तांत्रिक माहिती | डीजे फ्रूट्स अँड ड्रायफ्रूट्स एक्सपोर्ट्स"
+  description="द्राक्ष काढणी दर्जा, बाजार समिती सरासरी दर आणि बागायतदारांच्या हक्कांबद्दल उपयुक्त शेती सल्लागार."
+  canonicalPath="/mr/blog"
+>
+  <div class="section-opaque blog-list-page">
+    <div class="container">
+      <div class="blog-header">
+        <span class="section-tag">{dict.blog.tag}</span>
+        <h1 class="section-title">{dict.blog.title}</h1>
+        <p class="section-subtitle">{dict.blog.subtitle}</p>
+      </div>
+
+      <!-- Featured Post -->
+      {featuredPost && (
+        <article class="featured-post-card">
+          <div class="featured-media">
+            <img src={featuredPost.coverImage} alt={featuredPost.title} class="featured-img" />
+          </div>
+          <div class="featured-content">
+            <div class="post-meta">
+              <span class="post-cat">{featuredPost.category}</span>
+              <span class="post-date tabular-nums">{featuredPost.date}</span>
+              <span class="post-time">{featuredPost.readingTime} {dict.blog.reading_time}</span>
+            </div>
+            <h2 class="featured-title">
+              <a href={featuredPost.url}>{featuredPost.title}</a>
+            </h2>
+            <p class="featured-excerpt">{featuredPost.excerpt}</p>
+            <div class="post-bottom">
+              <span class="draft-tag">{dict.blog.draft_notice}</span>
+              <a href={featuredPost.url} class="btn btn-secondary">{dict.blog.read_more} →</a>
+            </div>
+          </div>
+        </article>
+      )}
+
+      <!-- Regular Posts Grid -->
+      <div class="regular-posts-grid">
+        {regularPosts.map((post) => (
+          <article class="post-card">
+            <div class="post-card-media">
+              <img src={post.coverImage} alt={post.title} class="post-card-img" loading="lazy" />
+            </div>
+            <div class="post-card-body">
+              <div class="post-meta">
+                <span class="post-cat">{post.category}</span>
+                <span class="post-time tabular-nums">{post.readingTime} {dict.blog.reading_time}</span>
+              </div>
+              <h3 class="post-card-title">
+                <a href={post.url}>{post.title}</a>
+              </h3>
+              <p class="post-card-excerpt">{post.excerpt}</p>
+              <div class="post-bottom">
+                <span class="draft-tag">{dict.blog.draft_notice}</span>
+                <a href={post.url} class="post-read-link">{dict.blog.read_more} →</a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .blog-list-page {
+    padding: 4.5rem 0 6rem;
+  }
+
+  .blog-header {
+    margin-bottom: 3.5rem;
+  }
+
+  .featured-post-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border-rule);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-hard);
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-bottom: 3.5rem;
+  }
+
+  @media (min-width: 992px) {
+    .featured-post-card {
+      grid-template-columns: 1.2fr 1fr;
+    }
+  }
+
+  .featured-media {
+    background: #EAEFE7;
+    height: 100%;
+    min-height: 280px;
+  }
+
+  .featured-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .featured-content {
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.8125rem;
+    margin-bottom: 1rem;
+    color: var(--ink-dim);
+  }
+
+  .post-cat {
+    background: rgba(46, 125, 79, 0.12);
+    color: var(--leaf);
+    font-weight: 700;
+    padding: 0.15rem 0.5rem;
+    border-radius: 2px;
+  }
+
+  .featured-title {
+    font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+    line-height: 1.35;
+    margin-bottom: 1rem;
+  }
+
+  .featured-title a {
+    color: var(--canopy);
+    text-decoration: none;
+  }
+
+  .featured-title a:hover {
+    color: var(--leaf);
+  }
+
+  .featured-excerpt {
+    font-size: 1.05rem;
+    color: var(--ink-dim);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .post-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: auto;
+  }
+
+  .draft-tag {
+    font-size: 0.75rem;
+    color: var(--amber);
+    background: #FDF9F0;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid #EAD8B5;
+    border-radius: 2px;
+    font-weight: 600;
+  }
+
+  .regular-posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+
+  .post-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border-rule);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 2px 2px 0px rgba(15, 59, 44, 0.08);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .post-card-media {
+    height: 200px;
+    background: #EAEFE7;
+  }
+
+  .post-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .post-card-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .post-card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+  }
+
+  .post-card-title a {
+    color: var(--canopy);
+    text-decoration: none;
+  }
+
+  .post-card-title a:hover {
+    color: var(--leaf);
+  }
+
+  .post-card-excerpt {
+    font-size: 0.95rem;
+    color: var(--ink-dim);
+    line-height: 1.65;
+    margin-bottom: 1.25rem;
+  }
+
+  .post-read-link {
+    color: var(--leaf);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.875rem;
+  }
+
+  .post-read-link:hover {
+    text-decoration: underline;
+  }
+</style>

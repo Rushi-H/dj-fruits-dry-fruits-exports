@@ -1,0 +1,204 @@
+---
+import siteData from '../../content/site.json';
+
+interface Props {
+  lang: 'en' | 'mr';
+  dict: any;
+}
+
+const { lang, dict } = Astro.props;
+const prefix = lang === 'mr' ? '/mr' : '';
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="site-footer" aria-label="Site footer">
+  <div class="container footer-container">
+    <div class="footer-top-grid">
+      <!-- Col 1: Brand & Sourcing Statement -->
+      <div class="footer-col footer-brand-col">
+        <div class="footer-brand-header">
+          <span class="footer-brand-mark">DJ</span>
+          <span class="footer-brand-name">DJ FRUITS & DRY FRUITS EXPORTS</span>
+        </div>
+        <p class="footer-brand-sub">{dict.footer.brand_tag}</p>
+        <p class="footer-address">
+          📍 {siteData.address}
+        </p>
+      </div>
+
+      <!-- Col 2: Navigation Links -->
+      <div class="footer-col">
+        <h4 class="footer-col-title">{dict.footer.links_title}</h4>
+        <ul class="footer-links-list">
+          <li><a href={`${prefix}/#farmers`}>{dict.nav.farmers}</a></li>
+          <li><a href={`${prefix}/#mandi-rates`}>{dict.farmers.rates.title}</a></li>
+          <li><a href={`${prefix}/#weighing-slip`}>{dict.farmers.slip.title}</a></li>
+          <li><a href={`${prefix}/#products`}>{dict.nav.products}</a></li>
+          <li><a href={`${prefix}/#origin`}>{dict.nav.origin}</a></li>
+          <li><a href={`${prefix}/blog`}>{dict.nav.blog}</a></li>
+          <li><a href={`${prefix}/#contact`}>{dict.nav.contact}</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Key Horticulture Belts -->
+      <div class="footer-col">
+        <h4 class="footer-col-title">{lang === 'mr' ? 'खरेदी जिल्हे' : 'Procurement Clusters'}</h4>
+        <ul class="footer-links-list">
+          <li><span>Sangli (Tasgaon & Miraj Belts)</span></li>
+          <li><span>Solapur (Sangola & Pandharpur)</span></li>
+          <li><span>Nashik (Niphad & Dindori Grapes)</span></li>
+          <li><span>Pune (Junnar & Baramati)</span></li>
+          <li><span>Satara (Phaltan Orchards)</span></li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Compliance & Legal -->
+      <div class="footer-col">
+        <h4 class="footer-col-title">{dict.footer.legal_title}</h4>
+        <ul class="footer-links-list">
+          <li><a href={`${prefix}/privacy`}>{dict.footer.privacy}</a></li>
+          <li><a href={`${prefix}/terms`}>{dict.footer.terms}</a></li>
+        </ul>
+        <div class="footer-contact-direct">
+          <span class="footer-contact-label">Export Desk WhatsApp:</span>
+          <a href="https://wa.me/919130659595" class="footer-wa-link tabular-nums">+91 9130659595</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Bottom Line -->
+    <div class="footer-bottom">
+      <p class="footer-copy">
+        &copy; {currentYear} {dict.footer.copy}
+      </p>
+      <p class="footer-source-note">
+        {lang === 'mr' ? 'प्रमाणित डिजिटल वजनकाटा • थेट बँक एनइएफटी/आरटीजीएस पेमेंट' : 'Certified Digital Scales • Direct Bank RTGS/NEFT Settlement'}
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background-color: #071912;
+    border-top: 1px solid var(--border-dark);
+    color: #BAC9B7;
+    padding: 4.5rem 0 2.5rem;
+    position: relative;
+    z-index: 10;
+  }
+
+  .footer-top-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .footer-brand-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .footer-brand-mark {
+    width: 36px;
+    height: 36px;
+    background: var(--sprout);
+    color: var(--canopy);
+    font-weight: 900;
+    font-size: 1.125rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius);
+  }
+
+  .footer-brand-name {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: #FFFFFF;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .footer-brand-sub {
+    font-size: 0.875rem;
+    color: #8CA395;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+
+  .footer-address {
+    font-size: 0.8125rem;
+    color: #9AB3A5;
+    line-height: 1.6;
+  }
+
+  .footer-col-title {
+    font-size: 0.9375rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--sprout);
+    margin-bottom: 1.25rem;
+  }
+
+  .footer-links-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .footer-links-list a, .footer-links-list span {
+    color: #BAC9B7;
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.15s ease;
+  }
+
+  .footer-links-list a:hover {
+    color: #FFFFFF;
+    text-decoration: underline;
+  }
+
+  .footer-contact-direct {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .footer-contact-label {
+    display: block;
+    font-size: 0.75rem;
+    color: #8CA395;
+    margin-bottom: 0.25rem;
+  }
+
+  .footer-wa-link {
+    color: var(--sprout);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9375rem;
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 0.8125rem;
+    color: #728A7D;
+  }
+
+  @media (max-width: 640px) {
+    .footer-bottom {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>

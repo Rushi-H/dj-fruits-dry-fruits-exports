@@ -1,0 +1,34 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import Farmers from '../components/Farmers.astro';
+import Products from '../components/Products.astro';
+import Origin from '../components/Origin.astro';
+import Contact from '../components/Contact.astro';
+import en from '../i18n/en.json';
+
+const lang = 'en';
+const dict = en;
+---
+
+<Layout
+  lang={lang}
+  title="DJ Fruits and Dry Fruits Exports | Direct Farm Procurement & Mandi Rates"
+  description="We buy export-grade grapes, raisins, pomegranate, almonds, and dates directly from farmers across Sangli, Solapur, Nashik, and Pune. Calibrated digital weighing & direct bank payment."
+  canonicalPath="/"
+>
+  <!-- Hero with Scroll-Scrubbed Video bg2.mp4 -->
+  <Hero lang={lang} dict={dict} />
+
+  <!-- Farmers Procurement & Mandi Rates & Weighing Slip -->
+  <Farmers lang={lang} dict={dict} />
+
+  <!-- Products We Procure & Sourcing Calendar -->
+  <Products lang={lang} dict={dict} />
+
+  <!-- Origin Footprint & Interactive Maharashtra Map -->
+  <Origin lang={lang} dict={dict} />
+
+  <!-- Direct Contact & Collection Packhouse -->
+  <Contact lang={lang} dict={dict} />
+</Layout>

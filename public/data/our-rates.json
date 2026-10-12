@@ -1,0 +1,33 @@
+{
+  "updated_date": "2026-10-10",
+  "label": "Our reference buying rate",
+  "label_mr": "आमचा संदर्भ खरेदी दर",
+  "notes": "Rates are subject to moisture test, physical count per ounce, and visual inspection at collection centre.",
+  "notes_mr": "ओलावा चाचणी, प्रति औंस मोजणी आणि संकलन केंद्रावरील प्रत्यक्ष तपासणीवर आधारित अंतिम दर ठरवला जातो.",
+  "items": [
+    {
+      "commodity": "Almonds",
+      "commodity_mr": "बदाम",
+      "grade": "California Nonpareil 27/30 (In-shell)",
+      "buying_rate_kg": 420,
+      "buying_rate_quintal": 42000,
+      "delivery_point": "Manerajuri Cold Store"
+    },
+    {
+      "commodity": "Dates",
+      "commodity_mr": "खजूर",
+      "grade": "Royal Medjool Jumbo Grade-A",
+      "buying_rate_kg": 540,
+      "buying_rate_quintal": 54000,
+      "delivery_point": "Manerajuri Cold Store"
+    },
+    {
+      "commodity": "Cashews",
+      "commodity_mr": "काजू",
+      "grade": "W240 Whole Raw Kernel",
+      "buying_rate_kg": 760,
+      "buying_rate_quintal": 76000,
+      "delivery_point": "Manerajuri Cold Store"
+    }
+  ]
+}

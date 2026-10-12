@@ -1,0 +1,369 @@
+---
+interface Props {
+  lang: 'en' | 'mr';
+  dict: any;
+  canonicalPath: string;
+}
+
+const { lang, dict, canonicalPath } = Astro.props;
+
+// Determine language switch targets
+const pathWithoutLang = canonicalPath.replace(/^\/mr/, '') || '/';
+const enTarget = pathWithoutLang;
+const mrTarget = `/mr${pathWithoutLang === '/' ? '' : pathWithoutLang}`;
+
+const prefix = lang === 'mr' ? '/mr' : '';
+const homeLink = `${prefix}/`;
+const farmersLink = `${prefix}/#farmers`;
+const productsLink = `${prefix}/#products`;
+const originLink = `${prefix}/#origin`;
+const blogLink = `${prefix}/blog`;
+const contactLink = `${prefix}/#contact`;
+
+const defaultWhatsAppText = lang === 'mr'
+  ? 'नमस्कार, मला डीजे फ्रूट्सकडे शेतमाल विक्रीसाठी चौकशी करायची आहे.'
+  : 'Hello DJ Fruits Export desk, I would like to enquire about selling fresh produce.';
+const whatsappUrl = `https://wa.me/919130659595?text=${encodeURIComponent(defaultWhatsAppText)}`;
+---
+
+<header class="site-header" id="site-header">
+  <!-- Top Utility Bar: Language Switcher & Direct Hotlines -->
+  <div class="header-topbar">
+    <div class="container topbar-inner">
+      <div class="topbar-left">
+        <span class="topbar-hub">📍 {lang === 'mr' ? 'थेट संकलन केंद्र: मनेराजुरी, सांगली' : 'Direct Packhouse: Manerajuri, Sangli'}</span>
+        <a href="tel:+919130659595" class="topbar-tel">📞 +91 9130659595</a>
+      </div>
+
+      <div class="topbar-right">
+        <!-- Language Switcher -->
+        <div class="lang-switch" role="navigation" aria-label="Language selection">
+          <a
+            href={enTarget}
+            class:list={['lang-btn', { active: lang === 'en' }]}
+            aria-current={lang === 'en' ? 'page' : undefined}
+          >
+            English
+          </a>
+          <span class="lang-divider" aria-hidden="true">|</span>
+          <a
+            href={mrTarget}
+            class:list={['lang-btn', { active: lang === 'mr' }]}
+            aria-current={lang === 'mr' ? 'page' : undefined}
+          >
+            मराठी
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Navbar -->
+  <div class="header-main">
+    <div class="container nav-inner">
+      <!-- Brand Logo -->
+      <a href={homeLink} class="brand-link" aria-label="DJ Fruits and Dry Fruits Exports Home">
+        <div class="brand-mark">DJ</div>
+        <div class="brand-text">
+          <span class="brand-title">DJ FRUITS & DRY FRUITS</span>
+          <span class="brand-tagline">{lang === 'mr' ? 'थेट शेतातून निर्यात पुरवठा' : 'EXPORTS • SOURCING PACKHOUSE'}</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="nav-menu" id="nav-menu" aria-label="Main menu">
+        <ul class="nav-list">
+          <li><a href={homeLink} class="nav-item">{dict.nav.home}</a></li>
+          <li><a href={farmersLink} class="nav-item">{dict.nav.farmers}</a></li>
+          <li><a href={productsLink} class="nav-item">{dict.nav.products}</a></li>
+          <li><a href={originLink} class="nav-item">{dict.nav.origin}</a></li>
+          <li><a href={blogLink} class="nav-item">{dict.nav.blog}</a></li>
+          <li><a href={contactLink} class="nav-item">{dict.nav.contact}</a></li>
+        </ul>
+      </nav>
+
+      <!-- Primary Action & Mobile Menu Toggle -->
+      <div class="nav-actions">
+        <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp nav-cta-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 6.46 17.5 2 12.04 2M12.05 3.67C16.58 3.67 20.28 7.37 20.28 11.92C20.28 16.46 16.58 20.17 12.04 20.17C10.59 20.17 9.17 19.79 7.92 19.05L7.62 18.87L4.5 19.69L5.33 16.65L5.13 16.33C4.33 15.05 3.8 13.51 3.8 11.91C3.81 7.37 7.51 3.67 12.05 3.67Z"/>
+          </svg>
+          <span>{dict.nav.sell_cta}</span>
+        </a>
+
+        <button
+          type="button"
+          class="mobile-toggle"
+          id="mobile-toggle-btn"
+          aria-expanded="false"
+          aria-controls="nav-menu"
+          aria-label="Toggle navigation menu"
+        >
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(15, 59, 44, 0.96);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-dark);
+  }
+
+  .header-topbar {
+    background-color: #0A241B;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 0.8125rem;
+    padding: 0.4rem 0;
+  }
+
+  .topbar-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--mist);
+  }
+
+  .topbar-left {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .topbar-tel {
+    color: var(--sprout);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .topbar-tel:hover {
+    text-decoration: underline;
+  }
+
+  .lang-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .lang-btn {
+    color: #BAC9B7;
+    text-decoration: none;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    padding: 0.1rem 0.3rem;
+    border-radius: 2px;
+  }
+
+  .lang-btn.active {
+    color: #FFFFFF;
+    font-weight: 700;
+    background-color: var(--leaf);
+  }
+
+  .lang-divider {
+    color: rgba(255, 255, 255, 0.3);
+  }
+
+  /* Main Nav */
+  .header-main {
+    padding: 0.75rem 0;
+  }
+
+  .nav-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .brand-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: #FFFFFF;
+  }
+
+  .brand-mark {
+    width: 40px;
+    height: 40px;
+    background-color: var(--sprout);
+    color: var(--canopy);
+    font-family: var(--font-display-en);
+    font-weight: 900;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius);
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+  }
+
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .brand-title {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #FFFFFF;
+    line-height: 1.2;
+  }
+
+  .brand-tagline {
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    color: var(--sprout);
+    font-weight: 600;
+  }
+
+  .nav-menu {
+    display: none;
+  }
+
+  .nav-list {
+    display: flex;
+    list-style: none;
+    gap: 1.75rem;
+    align-items: center;
+  }
+
+  .nav-item {
+    color: var(--mist);
+    text-decoration: none;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    padding: 0.5rem 0;
+    position: relative;
+    transition: color 0.15s ease;
+  }
+
+  .nav-item:hover {
+    color: var(--sprout);
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+  }
+
+  .nav-cta-btn {
+    padding: 0.6rem 1.1rem;
+    font-size: 0.875rem;
+    min-height: 40px;
+  }
+
+  .mobile-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius);
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  .mobile-toggle .bar {
+    width: 100%;
+    height: 2px;
+    background-color: #FFFFFF;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  @media (min-width: 992px) {
+    .nav-menu {
+      display: block;
+    }
+    .mobile-toggle {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .topbar-left {
+      display: none;
+    }
+    .topbar-inner {
+      justify-content: flex-end;
+    }
+    .brand-title {
+      font-size: 1rem;
+    }
+    .nav-cta-btn span {
+      display: none;
+    }
+    .nav-cta-btn {
+      padding: 0.6rem;
+      min-height: 40px;
+    }
+  }
+
+  /* Mobile menu active overlay */
+  .nav-menu.open {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #0B291E;
+    border-bottom: 2px solid var(--border-dark);
+    padding: 1.5rem 1.25rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  }
+
+  .nav-menu.open .nav-list {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .nav-menu.open .nav-item {
+    font-size: 1.125rem;
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+</style>
+
+<script is:inline>
+  // Mobile Nav Toggle
+  const toggleBtn = document.getElementById('mobile-toggle-btn');
+  const navMenu = document.getElementById('nav-menu');
+
+  if (toggleBtn && navMenu) {
+    toggleBtn.addEventListener('click', () => {
+      const isOpen = navMenu.classList.toggle('open');
+      toggleBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    // Close when clicking nav items
+    navMenu.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', () => {
+        navMenu.classList.remove('open');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+</script>

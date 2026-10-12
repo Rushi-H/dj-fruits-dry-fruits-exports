@@ -1,0 +1,378 @@
+---
+interface Props {
+  lang: 'en' | 'mr';
+  dict: any;
+}
+
+const { lang, dict } = Astro.props;
+
+// Products mapping with real images generated
+const productImages: Record<string, string> = {
+  grapes: '/images/grapes.jpg',
+  raisins: '/images/raisins.jpg',
+  pomegranate: '/images/pomegranate.jpg',
+  almonds: '/images/almonds.jpg',
+  dates: '/images/dates.jpg',
+  cashews: '/images/cashews.jpg'
+};
+
+// Sourcing calendar months: 1 to 12
+const monthsEn = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const monthsMr = ['जाने', 'फेब्रु', 'मार्च', 'एप्रि', 'मे', 'जून', 'जुलै', 'ऑगस्ट', 'सप्टें', 'ऑक्टो', 'नोव्हे', 'डिसें'];
+const months = lang === 'mr' ? monthsMr : monthsEn;
+
+// Calendar active ranges (startMonth, endMonth 1-indexed)
+const calendarData = [
+  { id: 'grapes', name: lang === 'mr' ? 'हिरवी द्राक्षे' : 'Green Grapes', start: 12, end: 4, color: '#2E7D4F' },
+  { id: 'raisins', name: lang === 'mr' ? 'सांगली बेदाणा' : 'Golden Raisins', start: 2, end: 6, color: '#B9852B' },
+  { id: 'pomegranate', name: lang === 'mr' ? 'भगवा डाळिंब' : 'Pomegranate', start: 8, end: 2, color: '#A93226' },
+  { id: 'almonds', name: lang === 'mr' ? 'कॅलिफोर्निया बदाम' : 'Almonds', start: 1, end: 12, color: '#7D6608' },
+  { id: 'dates', name: lang === 'mr' ? 'शाही खजूर' : 'Medjool Dates', start: 8, end: 11, color: '#6E2C00' },
+  { id: 'cashews', name: lang === 'mr' ? 'काजू गर' : 'Raw Cashews', start: 3, end: 7, color: '#1B4F72' },
+];
+---
+
+<section class="section-opaque products-section" id="products" aria-label="Products procured for export">
+  <div class="container">
+    <!-- Header -->
+    <div class="section-header">
+      <span class="section-tag">{dict.products.tag}</span>
+      <h2 class="section-title">{dict.products.title}</h2>
+      <p class="section-subtitle">{dict.products.subtitle}</p>
+    </div>
+
+    <!-- Asymmetric Products Grid -->
+    <div class="products-grid">
+      {dict.products.items.map((prod: any, idx: number) => {
+        const isFeatured = idx === 0; // Grapes featured larger
+        const imgSrc = productImages[prod.id] || '/images/grapes.jpg';
+
+        return (
+          <article class:list={['product-card', { 'product-card--featured': isFeatured }]} id={`crop-${prod.id}`}>
+            <div class="product-media-wrap">
+              <img
+                src={imgSrc}
+                alt={`${prod.name} - ${prod.grades}`}
+                class="product-img"
+                loading="lazy"
+                width={isFeatured ? 640 : 400}
+                height={isFeatured ? 480 : 300}
+              />
+              <span class="media-caption">{dict.products.illustrative_note}</span>
+            </div>
+
+            <div class="product-info">
+              <div class="product-names">
+                <span class="crop-local-name">{prod.name_mr}</span>
+                <h3 class="crop-main-name">{prod.name}</h3>
+              </div>
+
+              <p class="crop-desc">{prod.description}</p>
+
+              <div class="specs-box">
+                <div class="spec-line">
+                  <strong class="spec-label">{dict.products.season_label}</strong>
+                  <span class="spec-val">{prod.season}</span>
+                </div>
+                <div class="spec-line">
+                  <strong class="spec-label">{dict.products.grades_label}</strong>
+                  <span class="spec-val">{prod.grades}</span>
+                </div>
+                <div class="spec-line">
+                  <strong class="spec-label">{dict.products.packing_label}</strong>
+                  <span class="spec-val">{prod.packing}</span>
+                </div>
+              </div>
+
+              <a
+                href="#weighing-slip"
+                class="btn btn-secondary offer-crop-btn"
+                data-crop-id={prod.id}
+                data-crop-name={prod.id === 'grapes' ? 'Grapes' : prod.id === 'pomegranate' ? 'Pomegranate' : prod.id === 'raisins' ? 'Raisins' : prod.id === 'almonds' ? 'Almonds' : prod.id === 'dates' ? 'Dates' : 'Cashews'}
+              >
+                <span>{dict.products.offer_btn}</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+
+    <!-- Sourcing & Harvest Calendar SVG Chart -->
+    <div class="calendar-block">
+      <h3 class="calendar-title">{dict.products.calendar_title}</h3>
+
+      <div class="calendar-table-wrap">
+        <div class="calendar-header-months">
+          <div class="cal-col-crop">Commodity</div>
+          {months.map((m) => (
+            <div class="cal-col-month">{m}</div>
+          ))}
+        </div>
+
+        <div class="calendar-rows">
+          {calendarData.map((item) => (
+            <div class="calendar-row">
+              <div class="cal-row-name">{item.name}</div>
+              <div class="cal-row-timeline">
+                <div
+                  class="timeline-bar"
+                  style={`background-color: ${item.color};`}
+                  data-start={item.start}
+                  data-end={item.end}
+                ></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .products-section {
+    background-color: #FAFBF8;
+    border-top: 1px solid var(--border-rule);
+    border-bottom: 1px solid var(--border-rule);
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-bottom: 5.5rem;
+  }
+
+  .product-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border-rule);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 2px 2px 0px rgba(15, 59, 44, 0.08);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .product-card:hover {
+    box-shadow: var(--shadow-hard-subtle);
+    transform: translateY(-2px);
+  }
+
+  /* Featured Card spans 2 columns on wide screens */
+  @media (min-width: 992px) {
+    .product-card--featured {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+    }
+  }
+
+  .product-media-wrap {
+    position: relative;
+    overflow: hidden;
+    background: #E8ECE6;
+    height: 240px;
+  }
+
+  .product-card--featured .product-media-wrap {
+    height: 100%;
+    min-height: 320px;
+  }
+
+  .product-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .product-card:hover .product-img {
+    transform: scale(1.02);
+  }
+
+  .media-caption {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.65);
+    color: #FFFFFF;
+    font-size: 0.6875rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 2px;
+  }
+
+  .product-info {
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .product-names {
+    margin-bottom: 0.75rem;
+  }
+
+  .crop-local-name {
+    display: inline-block;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--leaf);
+    background: rgba(46, 125, 79, 0.1);
+    padding: 0.15rem 0.5rem;
+    border-radius: 2px;
+    margin-bottom: 0.35rem;
+  }
+
+  .crop-main-name {
+    font-size: 1.5rem;
+    color: var(--canopy);
+  }
+
+  .crop-desc {
+    font-size: 0.9375rem;
+    color: var(--ink-dim);
+    line-height: 1.55;
+    margin-bottom: 1.25rem;
+  }
+
+  .specs-box {
+    background: var(--mist);
+    border: 1px solid var(--border-rule);
+    border-radius: var(--radius);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    margin-top: auto;
+  }
+
+  .spec-line {
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    margin-bottom: 0.35rem;
+  }
+
+  .spec-line:last-child {
+    margin-bottom: 0;
+  }
+
+  .spec-label {
+    color: var(--canopy);
+    margin-right: 0.35rem;
+  }
+
+  .spec-val {
+    color: var(--ink);
+  }
+
+  .offer-crop-btn {
+    width: 100%;
+    font-size: 0.9375rem;
+    border-color: var(--border-rule);
+  }
+
+  /* Calendar Table */
+  .calendar-block {
+    background: #FFFFFF;
+    border: 1px solid var(--border-rule);
+    border-radius: var(--radius);
+    padding: 2.25rem;
+    box-shadow: 2px 2px 0px rgba(15, 59, 44, 0.08);
+  }
+
+  .calendar-title {
+    font-size: 1.35rem;
+    color: var(--canopy);
+    margin-bottom: 1.5rem;
+  }
+
+  .calendar-table-wrap {
+    overflow-x: auto;
+  }
+
+  .calendar-header-months {
+    display: grid;
+    grid-template-columns: 160px repeat(12, minmax(36px, 1fr));
+    gap: 4px;
+    margin-bottom: 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--ink-dim);
+    text-align: center;
+  }
+
+  .cal-col-crop {
+    text-align: left;
+  }
+
+  .calendar-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .calendar-row {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid #EEF3EA;
+  }
+
+  .cal-row-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--canopy);
+  }
+
+  .cal-row-timeline {
+    height: 18px;
+    background: #F0F4ED;
+    border-radius: 999px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .timeline-bar {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    border-radius: 999px;
+    opacity: 0.85;
+  }
+
+  /* Calendar ranges */
+  .timeline-bar[data-start="12"][data-end="4"] { left: 0%; width: 33%; }
+  .timeline-bar[data-start="2"][data-end="6"] { left: 16%; width: 42%; }
+  .timeline-bar[data-start="8"][data-end="2"] { left: 58%; width: 42%; }
+  .timeline-bar[data-start="1"][data-end="12"] { left: 0%; width: 100%; }
+  .timeline-bar[data-start="8"][data-end="11"] { left: 58%; width: 33%; }
+  .timeline-bar[data-start="3"][data-end="7"] { left: 25%; width: 42%; }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    // When clicking "Offer this product", pre-select it in the weighing slip
+    const offerButtons = document.querySelectorAll('.offer-crop-btn');
+    const cropSelect = document.getElementById('slip-crop-select');
+
+    offerButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const cropName = btn.getAttribute('data-crop-name');
+        if (cropSelect && cropName) {
+          for (let i = 0; i < cropSelect.options.length; i++) {
+            if (cropSelect.options[i].value === cropName) {
+              cropSelect.selectedIndex = i;
+              cropSelect.dispatchEvent(new Event('change'));
+              break;
+            }
+          }
+        }
+      });
+    });
+  });
+</script>

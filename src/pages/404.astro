@@ -1,0 +1,58 @@
+---
+import Layout from '../layouts/Layout.astro';
+import en from '../i18n/en.json';
+
+const lang = 'en';
+const dict = en;
+---
+
+<Layout
+  lang={lang}
+  title="404 - Page Not Found | DJ Fruits and Dry Fruits Exports"
+  description="The requested page could not be found."
+  canonicalPath="/404"
+>
+  <div class="section-opaque not-found-page">
+    <div class="container not-found-container">
+      <span class="section-tag">404 ERROR</span>
+      <h1 class="not-found-title">Page not found</h1>
+      <p class="not-found-text">
+        The page you are looking for might have been moved or is currently unavailable. Please return to our procurement home page.
+      </p>
+      <div class="not-found-actions">
+        <a href="/" class="btn btn-primary">Return to Home</a>
+        <a href="/mr/" class="btn btn-secondary">मराठी मुख्यपृष्ठ</a>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .not-found-page {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    padding: 6rem 0;
+  }
+  .not-found-container {
+    max-width: 600px;
+    text-align: center;
+  }
+  .not-found-title {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    margin: 1rem 0;
+    color: var(--canopy);
+  }
+  .not-found-text {
+    font-size: 1.1rem;
+    color: var(--ink-dim);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+  .not-found-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+</style>

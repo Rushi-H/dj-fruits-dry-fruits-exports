@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://djfruits.com/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://djfruits.com/"/>
+    <xhtml:link rel="alternate" hreflang="mr" href="https://djfruits.com/mr/"/>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://djfruits.com/mr/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://djfruits.com/"/>
+    <xhtml:link rel="alternate" hreflang="mr" href="https://djfruits.com/mr/"/>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://djfruits.com/blog</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://djfruits.com/blog"/>
+    <xhtml:link rel="alternate" hreflang="mr" href="https://djfruits.com/mr/blog"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://djfruits.com/mr/blog</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://djfruits.com/blog"/>
+    <xhtml:link rel="alternate" hreflang="mr" href="https://djfruits.com/mr/blog"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://djfruits.com/blog/grading-grapes</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://djfruits.com/blog/grading-grapes"/>
+    <xhtml:link rel="alternate" hreflang="mr" href="https://djfruits.com/mr/blog/grading-grapes"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://djfruits.com/mr/blog/grading-grapes</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://djfruits.com/blog/grading-grapes"/>
+    <xhtml:link rel="alternate" hreflang="mr" href="https://djfruits.com/mr/blog/grading-grapes"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://djfruits.com/privacy</loc>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://djfruits.com/mr/privacy</loc>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://djfruits.com/terms</loc>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://djfruits.com/mr/terms</loc>
+    <priority>0.3</priority>
+  </url>
+</urlset>

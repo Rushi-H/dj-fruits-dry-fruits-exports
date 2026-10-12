@@ -1,0 +1,85 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import mr from '../../i18n/mr.json';
+
+const lang = 'mr';
+const dict = mr;
+---
+
+<Layout
+  lang={lang}
+  title="गोपनीयता धोरण | डीजे फ्रूट्स अँड ड्रायफ्रूट्स एक्सपोर्ट्स"
+  description="शेतकऱ्यांचे फोन नंबर आणि शेतमालाच्या नोंदीबाबत आमचे पारदर्शक आणि सुरक्षित धोरण."
+  canonicalPath="/mr/privacy"
+>
+  <div class="section-opaque legal-page">
+    <div class="container legal-container">
+      <h1 class="legal-title">गोपनीयता धोरण (Privacy Policy)</h1>
+      <p class="legal-date">अद्ययावत: ११ ऑक्टोबर २०२६</p>
+
+      <div class="legal-content">
+        <h2>१. आम्ही गोळा करत असलेली माहिती</h2>
+        <p>
+          तुम्ही जेव्हा आमच्या डिजिटल वजन पावतीवर किंवा संपर्क फॉर्मवर माहिती भरता, तेव्हा आम्ही केवळ आवश्यक संपर्क माहिती घेतो:
+        </p>
+        <ul>
+          <li>तुमचे नाव आणि व्हॉट्सॲप मोबाईल नंबर.</li>
+          <li>बागेचे किंवा गावाचे ठिकाण (गाव, तालुका, जिल्हा).</li>
+          <li>पिकाची जात, अंदाजे वजन आणि काढणीची तारीख.</li>
+        </ul>
+
+        <h2>२. माहितीचा वापर</h2>
+        <p>
+          सदर माहितीचा वापर केवळ आमची खरेदी टीम तुमच्याशी थेट संपर्क साधून दर सांगण्यासाठी, बागेची तपासणी ठरवण्यासाठी आणि शेतमाल वाहतुकीसाठी करते. आम्ही शेतकऱ्यांची माहिती कुठल्याही त्रयस्थ व्यक्ती किंवा कंपनीला विकत किंवा देत नाही.
+        </p>
+
+        <h2>३. संपर्क</h2>
+        <p>
+          अधिक माहितीसाठी संपर्क:<br />
+          ईमेल: <a href="mailto:dj.fruitsanddryfruitsexports@gmail.com">dj.fruitsanddryfruitsexports@gmail.com</a><br />
+          फोन: +91 9130659595
+        </p>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .legal-page {
+    padding: 4.5rem 0 6rem;
+  }
+  .legal-container {
+    max-width: 780px;
+  }
+  .legal-title {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    margin-bottom: 0.5rem;
+    color: var(--canopy);
+  }
+  .legal-date {
+    font-size: 0.875rem;
+    color: var(--ink-dim);
+    margin-bottom: 2.5rem;
+  }
+  .legal-content h2 {
+    font-size: 1.35rem;
+    color: var(--canopy);
+    margin: 2rem 0 0.75rem;
+  }
+  .legal-content p {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--ink);
+    margin-bottom: 1.25rem;
+  }
+  .legal-content ul {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+    color: var(--ink);
+    line-height: 1.7;
+  }
+  .legal-content a {
+    color: var(--leaf);
+    font-weight: 600;
+  }
+</style>

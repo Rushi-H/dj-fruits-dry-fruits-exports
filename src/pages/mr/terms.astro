@@ -1,0 +1,68 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import mr from '../../i18n/mr.json';
+
+const lang = 'mr';
+const dict = mr;
+---
+
+<Layout
+  lang={lang}
+  title="नियम व अटी | डीजे फ्रूट्स अँड ड्रायफ्रूट्स एक्सपोर्ट्स"
+  description="खरेदी दर, वजन पद्धती आणि बाजार समिती माहितीबाबतचे नियम व अटी."
+  canonicalPath="/mr/terms"
+>
+  <div class="section-opaque legal-page">
+    <div class="container legal-container">
+      <h1 class="legal-title">नियम व अटी (Terms of Use)</h1>
+      <p class="legal-date">अद्ययावत: ११ ऑक्टोबर २०२६</p>
+
+      <div class="legal-content">
+        <h2>१. बाजार समितीचे दर</h2>
+        <p>
+          वेबसाईटवर दाखवलेले बाजार समितीचे दर हे केवळ शेतकरी संदर्भासाठी आहेत. प्रत्यक्ष खरेदी दर हा शेतमालाची गुणवत्ता, गोडवा (ब्रिक्स) व आकार पाहून निश्चित केला जातो.
+        </p>
+
+        <h2>२. वजन पावती हिशोब</h2>
+        <p>
+          डिजिटल पावतीमधील आकडे हे अंदाजे आहेत. प्रत्यक्ष वजन आमच्या मनेराजुरी पॅकहाऊसवर अधिकृत डिजिटल वजनकाट्यावर झाल्यावर अंतिम पावती दिली जाते.
+        </p>
+
+        <h2>३. पेमेंट पद्धत</h2>
+        <p>
+          मालाची खरेदी पावती झाल्यावर थेट शेतकऱ्याच्या बँक खात्यात आरटीजीएस किंवा एनइएफटीद्वारे रक्कम जमा केली जाते.
+        </p>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .legal-page {
+    padding: 4.5rem 0 6rem;
+  }
+  .legal-container {
+    max-width: 780px;
+  }
+  .legal-title {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    margin-bottom: 0.5rem;
+    color: var(--canopy);
+  }
+  .legal-date {
+    font-size: 0.875rem;
+    color: var(--ink-dim);
+    margin-bottom: 2.5rem;
+  }
+  .legal-content h2 {
+    font-size: 1.35rem;
+    color: var(--canopy);
+    margin: 2rem 0 0.75rem;
+  }
+  .legal-content p {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--ink);
+    margin-bottom: 1.25rem;
+  }
+</style>

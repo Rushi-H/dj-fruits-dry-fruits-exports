@@ -1,0 +1,269 @@
+{
+  "nav": {
+    "home": "Home",
+    "farmers": "Farmers & Rates",
+    "products": "Products We Buy",
+    "origin": "Origin & Belt",
+    "blog": "Farmer Advisory",
+    "contact": "Contact Us",
+    "sell_cta": "Sell to us (WhatsApp)"
+  },
+  "hero": {
+    "h1": "We buy fruit and dry fruit directly from growers and dealers.",
+    "subline": "Transparent digital weighing, confirmed fair market rates, and direct bank settlement for your harvest.",
+    "cta_sell": "Sell to us on WhatsApp",
+    "cta_rates": "See today's mandi rates",
+    "trust": {
+      "collection": "Direct Packhouse: Manerajuri, Sangli",
+      "districts": "Sourcing: Sangli, Solapur, Nashik & Pune",
+      "payment": "Direct bank settlement upon inspection & digital weighing",
+      "scale": "Certified electronic weighing scales"
+    }
+  },
+  "farmers": {
+    "tag": "FARMERS & PROCUREMENT",
+    "title": "A fair deal for every crate and quintal.",
+    "how_title": "How selling to us works",
+    "steps": [
+      {
+        "num": "01",
+        "title": "Tell us what you have",
+        "desc": "Fill our digital weighing slip below or message our export desk with your crop variety, estimated quantity, and farm location."
+      },
+      {
+        "num": "02",
+        "title": "We quote our reference rate",
+        "desc": "We review current APMC modal prices and confirm our buying rate based on crop quality, brix, and grade."
+      },
+      {
+        "num": "03",
+        "title": "Farm pickup or centre delivery",
+        "desc": "Bring your crates to our Manerajuri packhouse or arrange direct farm pickup across our primary sourcing belts."
+      },
+      {
+        "num": "04",
+        "title": "Direct bank payment",
+        "desc": "Transparent electronic weighing at the scale. Immediate payment transfer to your verified bank account upon grading."
+      }
+    ],
+    "rates": {
+      "tag": "DAILY MARKET BENCHMARK",
+      "title": "Today's Mandi Rates",
+      "subtitle": "Daily wholesale modal prices from government APMC markets across Maharashtra.",
+      "unit_toggle_quintal": "₹ / Quintal",
+      "unit_toggle_kg": "₹ / Kg",
+      "state_label": "State: Maharashtra",
+      "market_label": "Select Mandi:",
+      "filter_all": "All Crops",
+      "min_price": "Min Price",
+      "modal_price": "Modal Price",
+      "max_price": "Max Price",
+      "arrivals": "Arrivals",
+      "last_updated": "Last updated",
+      "source_notice": "Source: Agmarknet, Government of India. Wholesale mandi prices, indicative only.",
+      "our_reference_title": "Our Reference Buying Rates (Dry Fruits & Special Lots)",
+      "our_reference_note": "Reference rate dated 10 Oct 2026. Final rate determined upon moisture testing and grading at packhouse.",
+      "grade_label": "Grade / Variety:",
+      "delivery_label": "Delivery Point:"
+    },
+    "slip": {
+      "badge": "SIGNATURE WEIGHING SLIP (PAVTI)",
+      "title": "Calculate estimated value & generate your sale request",
+      "role_farmer": "I am a Farmer",
+      "role_dealer": "I am a Dealer / Trader",
+      "crop_label": "Select Crop / Commodity",
+      "qty_label": "Approximate Quantity (in Quintals)",
+      "qty_hint": "1 Quintal = 100 Kilograms",
+      "village_label": "Village / Farm Location",
+      "taluka_label": "Taluka",
+      "district_label": "District",
+      "phone_label": "WhatsApp Mobile Number",
+      "lot_size_label": "Packing / Crate Type (Dealers)",
+      "availability_label": "Harvest / Delivery Date",
+      "receipt_header": "PRODUCE PURCHASE MEMO",
+      "receipt_id": "MEMO NO:",
+      "receipt_date": "DATE:",
+      "receipt_seller": "SELLER:",
+      "receipt_location": "LOCATION:",
+      "receipt_qty": "ESTIMATED QUANTITY:",
+      "receipt_benchmark": "MANDI BENCHMARK MODAL:",
+      "receipt_est_value": "ESTIMATED LOT VALUE:",
+      "receipt_disclaimer": "Estimate only. Final purchase rate is confirmed after quality inspection and certified digital weighing at packhouse.",
+      "send_whatsapp_btn": "Send my details on WhatsApp",
+      "fallback_email_btn": "Or submit via Email Form",
+      "stamp_text": "SLIP RECEIVED\nपावती स्वीकृत"
+    },
+    "promises": {
+      "title": "Our commitments to growers",
+      "items": [
+        {
+          "heading": "Honest Digital Scale",
+          "text": "Every crate is weighed on calibrated electronic platform scales in your presence. No arbitrary deductions."
+        },
+        {
+          "heading": "Direct Bank Settlement",
+          "text": "Electronic fund transfer directly to your bank account upon grading and issue of verified weighing receipt."
+        },
+        {
+          "heading": "Farm Gate Collection",
+          "text": "Scheduled refrigerated transport and pickup from farm gates across Sangli and Solapur horticulture clusters."
+        },
+        {
+          "heading": "Objective Grading Standards",
+          "text": "Clear berry size, color, brix sweetness, and defect thresholds explained upfront before unloading."
+        }
+      ]
+    }
+  },
+  "products": {
+    "tag": "COMMODITIES WE PROCURE",
+    "title": "Fresh fruits & premium dry fruits we buy for export",
+    "subtitle": "We partner with local growers of high-grade horticultural produce meeting domestic and overseas standards.",
+    "offer_btn": "Offer this crop for sale",
+    "season_label": "Sourcing Season:",
+    "grades_label": "Grades We Buy:",
+    "packing_label": "Accepted Packing:",
+    "illustrative_note": "Illustrative reference plate",
+    "calendar_title": "Annual Harvest & Sourcing Calendar",
+    "items": [
+      {
+        "id": "grapes",
+        "name": "Fresh Green Grapes",
+        "name_mr": "हिरवी द्राक्षे",
+        "description": "High-brix Thompson Seedless, Sonaka, and Super Sonaka table grapes grown across the Krishna river belt.",
+        "season": "December to April",
+        "grades": "Berry diameter 16mm+, Brix 16°+, crisp texture",
+        "packing": "Plastic field crates (10kg / 20kg), thermocol export punnets"
+      },
+      {
+        "id": "raisins",
+        "name": "Sangli Golden Raisins (Kishmish)",
+        "name_mr": "सांगली बेदाणा / किशमिश",
+        "description": "Naturally sun-dried golden and green raisins processed in Tasgaon and Sangli shed drying beds.",
+        "season": "February to June",
+        "grades": "Yellow Golden Bold, Green Bold, AAA export sort",
+        "packing": "10kg / 15kg corrugated export master cartons with food-grade liner"
+      },
+      {
+        "id": "pomegranate",
+        "name": "Fresh Pomegranate",
+        "name_mr": "भगवा डाळिंब",
+        "description": "Deep red Bhagwa variety renowned for sweet soft seeds, bright glossy rind, and long shelf life.",
+        "season": "August to February",
+        "grades": "250g - 400g+ per fruit, flawless skin, zero sunburn",
+        "packing": "3.5kg / 5kg ventilated CFB boxes with foam separators"
+      },
+      {
+        "id": "almonds",
+        "name": "California & Mamra Almonds",
+        "name_mr": "बदाम",
+        "description": "Wholesale raw in-shell and shelled almond lots procured from registered importers and traders.",
+        "season": "Year-round procurement",
+        "grades": "Nonpareil 27/30, 30/32 count, zero bitter kernel",
+        "packing": "25kg / 50kg sealed nitrogen flushed bags or vacuum sacks"
+      },
+      {
+        "id": "dates",
+        "name": "Royal Medjool Dates",
+        "name_mr": "शाही मेदजूल खजूर",
+        "description": "Large, succulent caramel-textured dates sourced for seasonal Ramadan and festive distribution.",
+        "season": "August to November",
+        "grades": "Jumbo, Super Jumbo, moisture 20-24%",
+        "packing": "1kg and 5kg presentation boxes"
+      },
+      {
+        "id": "cashews",
+        "name": "Raw & Processed Cashew Kernels",
+        "name_mr": "काजू गर",
+        "description": "Whole white cashew kernels procured from Konkan and coastal processing units.",
+        "season": "March to July",
+        "grades": "W210, W240, W320 whole white kernels",
+        "packing": "10kg / 11.34kg tin cans or 25lb vacuum cartons"
+      }
+    ]
+  },
+  "origin": {
+    "tag": "SOURCING FOOTPRINT",
+    "title": "Where our harvest begins",
+    "subtitle": "Rooted in the fertile soils and dry climates of Western Maharashtra's premier horticulture belts.",
+    "districts_label": "Key Districts & Sourcing Hubs",
+    "map_hint": "Tap any district on the map or select from the list below to view local crop specialities:",
+    "districts": [
+      {
+        "id": "sangli",
+        "name": "Sangli",
+        "talukas": "Tasgaon, Miraj, Kavthe Mahankal, Khanapur",
+        "crops": "Thompson Grapes, Golden Raisins (Tasgaon Mandi)",
+        "hub": "Primary Packhouse & Cold Store: Gat No. 479, Manerajuri"
+      },
+      {
+        "id": "solapur",
+        "name": "Solapur",
+        "talukas": "Pandharpur, Sangola, Malshiras",
+        "crops": "Bhagwa Pomegranate, Red Seedless Grapes",
+        "hub": "Collection Hub: Sangola Belt"
+      },
+      {
+        "id": "nashik",
+        "name": "Nashik",
+        "talukas": "Niphad, Dindori, Pimpalgaon",
+        "crops": "Sharad Seedless, Jumbo Black Grapes, Table Grapes",
+        "hub": "Regional Partner Sourcing Hub"
+      },
+      {
+        "id": "pune",
+        "name": "Pune",
+        "talukas": "Junnar, Indapur, Baramati",
+        "crops": "Green Grapes, Pomegranate, Fig",
+        "hub": "Transit & APMC Terminal Point"
+      },
+      {
+        "id": "satara",
+        "name": "Satara",
+        "talukas": "Phaltan, Koregaon",
+        "crops": "Pomegranate, Specialty Fresh Fruits",
+        "hub": "Phaltan Collection Route"
+      }
+    ]
+  },
+  "blog": {
+    "tag": "FARMER ADVISORY",
+    "title": "Practical guidance for growers & dealers",
+    "subtitle": "Field notes on export quality standards, mandi price reporting, and fair trading practices.",
+    "read_more": "Read advisory",
+    "reading_time": "min read",
+    "draft_notice": "Draft article under operator review",
+    "share_whatsapp": "Share on WhatsApp"
+  },
+  "contact": {
+    "tag": "GET IN TOUCH",
+    "title": "Speak directly with our procurement desk",
+    "subtitle": "Have a harvest coming up? Contact our village packhouse or reach our team directly.",
+    "whatsapp_card_title": "Instant WhatsApp Desk",
+    "whatsapp_card_desc": "Send photos of your crop, farm location, or lot details directly to our procurement manager.",
+    "whatsapp_btn": "Chat on WhatsApp (+91 9130659595)",
+    "phone_label": "Direct Call:",
+    "email_label": "Email Enquiries:",
+    "address_label": "Packhouse & Office Address:",
+    "hours_label": "Operating Hours:",
+    "show_map_btn": "Show Interactive Map (Saves Data)",
+    "get_directions": "Get Directions on Google Maps",
+    "form_title": "Send a Direct Message",
+    "name_label": "Your Full Name *",
+    "mobile_label": "Mobile Phone Number *",
+    "role_label": "You are a:",
+    "message_label": "Produce details, estimated quantity, and location *",
+    "submit_btn": "Send Enquiry",
+    "success_msg": "Thank you! Your enquiry has been received. Our team will contact you shortly.",
+    "error_msg": "Please check the highlighted fields and try again."
+  },
+  "footer": {
+    "brand_tag": "Direct farm procurement & export supply chain.",
+    "links_title": "Quick Navigation",
+    "cert_title": "Standards & Compliance",
+    "legal_title": "Legal",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use",
+    "copy": "DJ Fruits and Dry Fruits Exports. All rights reserved."
+  }
+}

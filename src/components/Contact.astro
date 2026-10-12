@@ -1,0 +1,445 @@
+---
+import siteData from '../../content/site.json';
+
+interface Props {
+  lang: 'en' | 'mr';
+  dict: any;
+}
+
+const { lang, dict } = Astro.props;
+
+const directWaText = lang === 'mr'
+  ? 'नमस्कार, मला डीजे फ्रूट्स निर्यात केंद्राशी शेतमालाबाबत थेट चर्चा करायची आहे.'
+  : 'Hello DJ Fruits Export desk, I am looking to sell produce directly.';
+const waLink = `https://wa.me/919130659595?text=${encodeURIComponent(directWaText)}`;
+---
+
+<section class="section-opaque contact-section" id="contact" aria-label="Contact and packhouse location">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">{dict.contact.tag}</span>
+      <h2 class="section-title">{dict.contact.title}</h2>
+      <p class="section-subtitle">{dict.contact.subtitle}</p>
+    </div>
+
+    <div class="contact-grid">
+      <!-- Left Column: Direct Communication Cards -->
+      <div class="contact-info-col">
+        <!-- Direct WhatsApp Card -->
+        <div class="contact-card contact-card--highlight">
+          <div class="card-icon-title">
+            <span class="card-icon">💬</span>
+            <h3 class="card-title">{dict.contact.whatsapp_card_title}</h3>
+          </div>
+          <p class="card-desc">{dict.contact.whatsapp_card_desc}</p>
+          <a href={waLink} target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp contact-wa-btn">
+            {dict.contact.whatsapp_btn}
+          </a>
+        </div>
+
+        <!-- Phone, Email & Address Details -->
+        <div class="contact-card">
+          <div class="info-item">
+            <strong class="info-label">{dict.contact.phone_label}</strong>
+            <div class="info-values">
+              <a href="tel:+919130659595" class="info-link tabular-nums">+91 9130659595</a>,
+              <a href="tel:+918412867840" class="info-link tabular-nums">+91 84128 67840</a>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <strong class="info-label">{dict.contact.email_label}</strong>
+            <div class="info-values">
+              <a href="mailto:dj.fruitsanddryfruitsexports@gmail.com" class="info-link">
+                dj.fruitsanddryfruitsexports@gmail.com
+              </a>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <strong class="info-label">{dict.contact.address_label}</strong>
+            <p class="info-text">{siteData.address}</p>
+          </div>
+
+          <div class="info-item">
+            <strong class="info-label">{dict.contact.hours_label}</strong>
+            <p class="info-text">{siteData.hours}</p>
+          </div>
+        </div>
+
+        <!-- Lazy Loaded Google Map Card -->
+        <div class="map-embed-card">
+          <div class="map-placeholder" id="map-placeholder">
+            <p class="map-placeholder-text">
+              📍 Manerajuri Packhouse (Gat No. 479, Shekoba Road, Tasgaon, Sangli)
+            </p>
+            <div class="map-actions">
+              <button type="button" class="btn btn-secondary" id="btn-reveal-map">
+                {dict.contact.show_map_btn}
+              </button>
+              <a
+                href="https://maps.google.com/?q=Manerajuri,Tasgaon,Sangli"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-secondary"
+              >
+                {dict.contact.get_directions} ↗
+              </a>
+            </div>
+          </div>
+          <div id="map-iframe-target" class="map-iframe-wrap" style="display: none;"></div>
+        </div>
+      </div>
+
+      <!-- Right Column: Accessible Validated Contact Form with Honeypot -->
+      <div class="contact-form-col">
+        <div class="form-card">
+          <h3 class="form-card-title">{dict.contact.form_title}</h3>
+
+          <form id="procurement-contact-form" class="direct-contact-form" novalidate>
+            <!-- Anti-spam Honeypot (hidden from real users) -->
+            <div style="display: none;" aria-hidden="true">
+              <label for="contact-website-field">Leave empty</label>
+              <input type="text" id="contact-website-field" name="website" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <!-- Full Name -->
+            <div class="form-group">
+              <label for="contact-name" class="form-label">{dict.contact.name_label}</label>
+              <input
+                type="text"
+                id="contact-name"
+                name="name"
+                class="form-control"
+                placeholder={lang === 'mr' ? 'उदा. सचिन पाटील' : 'e.g. Ramesh Patil'}
+                required
+              />
+              <span class="field-error" id="error-name" role="alert"></span>
+            </div>
+
+            <!-- Phone Number -->
+            <div class="form-group">
+              <label for="contact-phone" class="form-label">{dict.contact.mobile_label}</label>
+              <input
+                type="tel"
+                id="contact-phone"
+                name="phone"
+                class="form-control tabular-nums"
+                placeholder="+91 98765 43210"
+                inputmode="numeric"
+                required
+              />
+              <span class="field-error" id="error-phone" role="alert"></span>
+            </div>
+
+            <!-- Role Selector -->
+            <div class="form-group">
+              <label for="contact-role" class="form-label">{dict.contact.role_label}</label>
+              <select id="contact-role" name="role" class="form-control">
+                <option value="Farmer">{lang === 'mr' ? 'शेतकरी / बागायतदार (Farmer)' : 'Farmer / Grower'}</option>
+                <option value="Dealer">{lang === 'mr' ? 'व्यापारी / कमिशन एजंट (Dealer)' : 'Trader / Commission Agent'}</option>
+                <option value="Importer">{lang === 'mr' ? 'खरेदीदार / आयातदार (Buyer)' : 'Wholesale Buyer'}</option>
+              </select>
+            </div>
+
+            <!-- Message / Lot Details -->
+            <div class="form-group">
+              <label for="contact-message" class="form-label">{dict.contact.message_label}</label>
+              <textarea
+                id="contact-message"
+                name="message"
+                rows="4"
+                class="form-control"
+                placeholder={lang === 'mr'
+                  ? 'तुमच्याकडे असलेली द्राक्षे/डाळिंब/बेदाणा, अंदाजे वजन (क्विंटल) व गाव...'
+                  : 'Crop variety, approximate tonnage/crates, farm location...'}
+                required
+              ></textarea>
+              <span class="field-error" id="error-message" role="alert"></span>
+            </div>
+
+            <!-- Submission Status Message -->
+            <div id="form-feedback" class="form-feedback" role="status" aria-live="polite"></div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary form-submit-btn" id="contact-submit-btn">
+              <span>{dict.contact.submit_btn}</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-section {
+    background-color: #FAFBF8;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 992px) {
+    .contact-grid {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+  }
+
+  .contact-info-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .contact-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border-rule);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    box-shadow: 2px 2px 0px rgba(15, 59, 44, 0.08);
+  }
+
+  .contact-card--highlight {
+    background: #F4FAF5;
+    border-color: #B9D6C4;
+  }
+
+  .card-icon-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-icon {
+    font-size: 1.5rem;
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+    color: var(--canopy);
+  }
+
+  .card-desc {
+    font-size: 0.9375rem;
+    color: var(--ink-dim);
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+  }
+
+  .contact-wa-btn {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .info-item {
+    margin-bottom: 1.25rem;
+  }
+
+  .info-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .info-label {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--leaf);
+    margin-bottom: 0.25rem;
+  }
+
+  .info-link {
+    color: var(--canopy);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .info-link:hover {
+    text-decoration: underline;
+  }
+
+  .info-text {
+    font-size: 0.9375rem;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  /* Map Embed */
+  .map-embed-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border-rule);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .map-placeholder {
+    padding: 1.75rem;
+    background: #F0F4ED;
+    text-align: center;
+  }
+
+  .map-placeholder-text {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--canopy);
+    margin-bottom: 1rem;
+  }
+
+  .map-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .map-iframe-wrap {
+    height: 300px;
+    width: 100%;
+  }
+
+  /* Contact Form */
+  .form-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border-rule);
+    border-radius: var(--radius);
+    padding: 2.25rem;
+    box-shadow: var(--shadow-hard);
+  }
+
+  .form-card-title {
+    font-size: 1.5rem;
+    color: var(--canopy);
+    margin-bottom: 1.5rem;
+  }
+
+  .field-error {
+    display: block;
+    font-size: 0.75rem;
+    color: #C0392B;
+    margin-top: 0.25rem;
+    font-weight: 600;
+  }
+
+  .form-feedback {
+    margin-bottom: 1.25rem;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    font-weight: 600;
+    display: none;
+  }
+
+  .form-feedback.success {
+    display: block;
+    background: #E8F8F0;
+    color: #1E7E34;
+    border: 1px solid #C3E6CB;
+  }
+
+  .form-feedback.error {
+    display: block;
+    background: #FDEDEC;
+    color: #C0392B;
+    border: 1px solid #F5C6CB;
+  }
+
+  .form-submit-btn {
+    width: 100%;
+    font-size: 1.0625rem;
+    padding: 1rem;
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1. Lazy Load Google Map on User Tap to Save 4G Data
+    const btnReveal = document.getElementById('btn-reveal-map');
+    const mapPlaceholder = document.getElementById('map-placeholder');
+    const mapTarget = document.getElementById('map-iframe-target');
+
+    if (btnReveal && mapTarget) {
+      btnReveal.addEventListener('click', () => {
+        mapTarget.innerHTML = `
+          <iframe
+            title="DJ Fruits Packhouse Manerajuri Map"
+            src="https://maps.google.com/maps?q=16.9200,74.7200&z=13&output=embed"
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        `;
+        mapTarget.style.display = 'block';
+        btnReveal.style.display = 'none';
+      });
+    }
+
+    // 2. Client Side Form Submission & Validation
+    const form = document.getElementById('procurement-contact-form');
+    const feedback = document.getElementById('form-feedback');
+
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // Check honeypot
+        const honeypot = document.getElementById('contact-website-field').value;
+        if (honeypot) return; // Silent fail against bots
+
+        const nameInput = document.getElementById('contact-name');
+        const phoneInput = document.getElementById('contact-phone');
+        const messageInput = document.getElementById('contact-message');
+        const roleInput = document.getElementById('contact-role');
+
+        const errName = document.getElementById('error-name');
+        const errPhone = document.getElementById('error-phone');
+        const errMessage = document.getElementById('error-message');
+
+        let isValid = true;
+        errName.textContent = '';
+        errPhone.textContent = '';
+        errMessage.textContent = '';
+
+        if (!nameInput.value.trim()) {
+          errName.textContent = 'Please enter your name.';
+          isValid = false;
+        }
+
+        if (!phoneInput.value.trim() || phoneInput.value.trim().length < 8) {
+          errPhone.textContent = 'Please enter a valid phone number.';
+          isValid = false;
+        }
+
+        if (!messageInput.value.trim()) {
+          errMessage.textContent = 'Please provide details of your crop or requirement.';
+          isValid = false;
+        }
+
+        if (!isValid) return;
+
+        // Feedback state
+        feedback.className = 'form-feedback success';
+        feedback.textContent = 'Thank you! Your inquiry has been submitted. Forwarding to WhatsApp desk...';
+
+        const waText = `*New Web Inquiry*\n` +
+          `• Name: ${nameInput.value.trim()}\n` +
+          `• Phone: ${phoneInput.value.trim()}\n` +
+          `• Role: ${roleInput.value}\n` +
+          `• Message: ${messageInput.value.trim()}`;
+
+        setTimeout(() => {
+          window.open(`https://wa.me/919130659595?text=${encodeURIComponent(waText)}`, '_blank');
+          form.reset();
+        }, 600);
+      });
+    }
+  });
+</script>
