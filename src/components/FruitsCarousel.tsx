@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import WaterRippleCarousel, { type Slide } from "@/components/ui/water-ripple-carousel"
+import WaterRippleCarousel, { type Slide } from "./ui/water-ripple-carousel"
 import { Waves } from "lucide-react"
 
 interface FruitsCarouselProps {
